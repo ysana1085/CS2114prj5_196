@@ -1,15 +1,16 @@
 package prj5;
+
 import java.util.Comparator;
 import list.AList;
-import src.prj5.InteractionData;
+import prj5.InteractionData;
 
 // -------------------------------------------------------------------------
 /**
- * Compare two social media influencers by reach engagement rate, either
- * on a monthly or quarterly scale.
+ * Compare two social media influencers by reach engagement rate, either on a
+ * monthly or quarterly scale.
  * 
- *  @author bradl
- *  @version Nov 19, 2024
+ * @author bradl
+ * @version Nov 19, 2024
  */
 public class CompareByReach
     implements Comparator<Influencer>
@@ -55,7 +56,7 @@ public class CompareByReach
     public int compareByMonth(InteractionData left, InteractionData right)
     {
         return Double.compare(
-            left.getReachEngagementRate(),
+            left.getReachEngagementRate()
             right.getReachEngagementRate());
     }
 }
