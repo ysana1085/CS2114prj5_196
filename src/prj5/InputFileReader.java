@@ -21,10 +21,7 @@ public class InputFileReader
             "August", "September", "October", "November", "December" };
     private DLinkedList<Influencer> influencers;
 
-    public InputFileReader(String arg)
-        throws FileNotFoundException,
-        ParseException, SocialMediaException
-    {
+    public InputFileReader(String arg) throws FileNotFoundException, ParseException, SocialMediaException {
         influencers = this.readAnalyticsFile(arg);
         outputAnalyticsFile();
     }
@@ -73,7 +70,6 @@ public class InputFileReader
         inStream.close();
         return influencers;
     }
-
     private void outputAnalyticsFile()
         throws FileNotFoundException
     {
@@ -98,7 +94,6 @@ public class InputFileReader
         writer.close();
     }
 
-
     public String printAnalyticsFile()
         throws FileNotFoundException
     {
@@ -110,7 +105,6 @@ public class InputFileReader
         }
         return sb.toString();
     }
-
 
     private void isValidMonth(String month)
         throws SocialMediaException
