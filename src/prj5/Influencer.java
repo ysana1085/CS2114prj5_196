@@ -1,15 +1,14 @@
 package prj5;
+
 import list.AList;
 
 // -------------------------------------------------------------------------
 /**
- * 
- * 
- * 
- *  @author 
- *  @version Nov 21, 2024
+ * @author
+ * @version Nov 21, 2024
  */
-public class Influencer
+public abstract class Influencer
+    implements Comparable<Influencer>
 {
     // ~ Fields ................................................................
     private String username;
