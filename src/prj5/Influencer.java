@@ -1,3 +1,10 @@
+// Virginia Tech Honor Code Pledge:
+//
+// As a Hokie, I will conduct myself with honor and integrity at all times.
+// I will not lie, cheat, or steal, nor will I accept the actions of those who
+// do.
+// -- Bradley Roos (bradleyroos@vt.edu)
+
 package prj5;
 
 import list.AList;
@@ -15,6 +22,7 @@ public class Influencer
     private String channelName;
     private String country;
     private String mainTopic;
+    private boolean isTraditional;
     private AList<InteractionData> monthData;
 
     // ~ Constructors ..........................................................
@@ -44,7 +52,8 @@ public class Influencer
         this.channelName = channelName;
         this.country = country;
         this.mainTopic = mainTopic;
-        this.monthData = new AList<InteractionData>();
+        monthData = new AList<InteractionData>();
+        isTraditional = true;
     }
 
 
@@ -105,11 +114,22 @@ public class Influencer
     }
 
 
+    public void setIsTraditional(boolean b)
+    {
+        isTraditional = b;
+    }
+
+
     @Override
     public int compareTo(Influencer o)
     {
-        // TODO Auto-generated method stub
-        return 0;
+        if (isTraditional)
+        {
+            CompareByTraditional comp = new CompareByTraditional();
+            return comp.compare(this, o);
+        }
+        CompareByReach comp = new CompareByReach();
+        return comp.compare(this, o);
     }
 
 

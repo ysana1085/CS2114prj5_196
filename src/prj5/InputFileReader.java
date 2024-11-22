@@ -1,3 +1,10 @@
+// Virginia Tech Honor Code Pledge:
+//
+// As a Hokie, I will conduct myself with honor and integrity at all times.
+// I will not lie, cheat, or steal, nor will I accept the actions of those who
+// do.
+// -- Bradley Roos (bradleyroos@vt.edu)
+
 package prj5;
 
 import java.io.FileNotFoundException;
@@ -21,7 +28,11 @@ public class InputFileReader
             "August", "September", "October", "November", "December" };
     private DLinkedList<Influencer> influencers;
 
-    public InputFileReader(String arg) throws FileNotFoundException, ParseException, SocialMediaException {
+    public InputFileReader(String arg)
+        throws FileNotFoundException,
+        ParseException,
+        SocialMediaException
+    {
         influencers = this.readAnalyticsFile(arg);
         outputAnalyticsFile();
     }
@@ -42,7 +53,8 @@ public class InputFileReader
 
     public DLinkedList<Influencer> readAnalyticsFile(String file)
         throws ParseException,
-        FileNotFoundException, SocialMediaException
+        FileNotFoundException,
+        SocialMediaException
     {
 
         Scanner inStream = IOHelper.createScanner(file);
@@ -70,6 +82,8 @@ public class InputFileReader
         inStream.close();
         return influencers;
     }
+
+
     private void outputAnalyticsFile()
         throws FileNotFoundException
     {
@@ -94,6 +108,7 @@ public class InputFileReader
         writer.close();
     }
 
+
     public String printAnalyticsFile()
         throws FileNotFoundException
     {
@@ -105,6 +120,7 @@ public class InputFileReader
         }
         return sb.toString();
     }
+
 
     private void isValidMonth(String month)
         throws SocialMediaException

@@ -66,4 +66,6 @@ public class InfluencerTest
         assertEquals(influencer.getMonthData().getLength(), 1);
 
     }
+
+    // todo: implement a couple test methods
 }

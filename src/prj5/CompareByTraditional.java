@@ -1,4 +1,5 @@
 package prj5;
+
 import java.util.Comparator;
 import list.AList;
 
@@ -28,13 +29,17 @@ public class CompareByTraditional
         AList<InteractionData> rightData = right.getMonthData();
         for (int i = 0; i < leftData.getLength(); i++)
         {
-            String engagement = leftData.getEntry(i).getTraditionalEngagementRate();
-            leftRate += Double.parseDouble(engagement.substring(0, engagement.indexOf("%")));
+            String engagement =
+                leftData.getEntry(i).getTraditionalEngagementRate();
+            leftRate += Double
+                .parseDouble(engagement.substring(0, engagement.indexOf("%")));
         }
         for (int i = 0; i < rightData.getLength(); i++)
         {
-            String engagement = rightData.getEntry(i).getTraditionalEngagementRate();
-            rightRate += Double.parseDouble(engagement.substring(0, engagement.indexOf("%")));
+            String engagement =
+                rightData.getEntry(i).getTraditionalEngagementRate();
+            rightRate += Double
+                .parseDouble(engagement.substring(0, engagement.indexOf("%")));
         }
         return Double.compare(leftRate, rightRate);
     }
