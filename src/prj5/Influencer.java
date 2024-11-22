@@ -23,6 +23,7 @@ public class Influencer
     private String country;
     private String mainTopic;
     private boolean isTraditional;
+    private boolean channelSort;
     private AList<InteractionData> monthData;
 
     // ~ Constructors ..........................................................
@@ -54,6 +55,7 @@ public class Influencer
         this.mainTopic = mainTopic;
         monthData = new AList<InteractionData>();
         isTraditional = true;
+        channelSort = true;
     }
 
 
@@ -120,16 +122,27 @@ public class Influencer
     }
 
 
+    public void setChannelSort(boolean b)
+    {
+        channelSort = b;
+    }
+
+
     @Override
-    public int compareTo(Influencer o)
+    public int compareTo(Influencer other)
     {
         if (isTraditional)
         {
             CompareByTraditional comp = new CompareByTraditional();
-            return comp.compare(this, o);
+            return comp.compare(this, other);
+        }
+        if (channelSort)
+        {
+            return this.channelName.toLowerCase()
+                .compareTo(other.channelName.toLowerCase());
         }
         CompareByReach comp = new CompareByReach();
-        return comp.compare(this, o);
+        return comp.compare(this, other);
     }
 
 

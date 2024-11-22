@@ -35,7 +35,6 @@ public class InputFileReader
     {
         influencers = new DLinkedList<Influencer>();
         readAnalyticsFile(arg);
-        outputAnalyticsFile();
     }
 
 
@@ -78,35 +77,33 @@ public class InputFileReader
             isValidMonth(month);
             Influencer influencer =
                 new Influencer(username, channel, country, mainTopic);
-            influencers.add(influencer);
+            int index = influencers.lastIndexOf(influencer);
+            if (index != -1)
+            {
+                influencers.getEntry(index).getMonthData().add(
+                    new InteractionData(
+                        likes,
+                        posts,
+                        followers,
+                        comments,
+                        views,
+                        month));
+            }
+            else
+            {
+                influencers.add(influencer);
+                influencer.getMonthData().add(
+                    new InteractionData(
+                        likes,
+                        posts,
+                        followers,
+                        comments,
+                        views,
+                        month));
+            }
         } // end while
         inStream.close();
         return influencers;
-    }
-
-
-    private void outputAnalyticsFile()
-        throws FileNotFoundException
-    {
-        PrintWriter writer = new PrintWriter("output.txt");
-        for (int i = 0; i < influencers.getLength(); i++)
-        {
-            String channel = influencers.getEntry(i).getChannelName();
-            writer.print(
-                channel + "\ntraditional: " + influencers.getEntry(i)
-                    .getAverageTraditionalEngagementRate());
-            writer.print("__________\n__________");
-        }
-        writer.print("**********\n\n**********");
-        for (int i = 0; i < influencers.getLength(); i++)
-        {
-            String channel = influencers.getEntry(i).getChannelName();
-            writer.print(
-                channel + "\nreach: "
-                    + influencers.getEntry(i).getAverageReachEngagementRate());
-            writer.print("__________\n__________");
-        }
-        writer.close();
     }
 
 
@@ -114,14 +111,36 @@ public class InputFileReader
         throws FileNotFoundException
     {
         StringBuilder sb = new StringBuilder();
-        Scanner sc = IOHelper.createScanner("output.txt");
-        while (sc.hasNextLine())
+        for(int i = 0; i < influencers.getLength(); i++)
         {
-            sb.append(sc.nextLine());
+            influencers.getEntry(i).setChannelSort(true);
+        }
+        Object[] o = influencers.toArray();
+        o = (Influencer[]) o;
+        influencers.sort((Influencer[]) influencers.toArray(), 0, influencers.getLength() - 1);
+        for (int i = 0; i < influencers.getLength(); i++)
+        {
+            String channel = influencers.getEntry(i).getChannelName();
+            sb.append(
+                channel + "\ntraditional: " + influencers.getEntry(i)
+                    .getAverageTraditionalEngagementRate());
+            double d =
+                influencers.getEntry(i).getAverageTraditionalEngagementRate();
+            sb.append("\n__________\n__________\n");
+        }
+        sb.append("**********\n\n**********");
+        for (int i = 0; i < influencers.getLength(); i++)
+        {
+            String channel = influencers.getEntry(i).getChannelName();
+            sb.append(
+                channel + "\nreach: "
+                    + influencers.getEntry(i).getAverageReachEngagementRate());
+            double d =
+                influencers.getEntry(i).getAverageReachEngagementRate();
+            sb.append("\n__________\n__________\n");
         }
         return sb.toString();
     }
-
 
     private void isValidMonth(String month)
         throws SocialMediaException
