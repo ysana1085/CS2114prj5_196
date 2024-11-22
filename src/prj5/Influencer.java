@@ -8,6 +8,7 @@ import list.AList;
  * @version Nov 21, 2024
  */
 public class Influencer
+    implements Comparable<Influencer>
 {
     // ~ Fields ................................................................
     private String username;
@@ -29,7 +30,7 @@ public class Influencer
      *            the country at which the influencer is located
      * @param mainTopic
      *            the main topic this influencer posts about
-     * @param monthData 
+     * @param monthData
      *            list of months of the influencer
      */
     public Influencer(
@@ -37,6 +38,7 @@ public class Influencer
         String channelName,
         String country,
         String mainTopic)
+
     {
         this.username = username;
         this.channelName = channelName;
@@ -102,6 +104,14 @@ public class Influencer
     }
 
 
+    @Override
+    public int compareTo(Influencer o)
+    {
+        // TODO Auto-generated method stub
+        return 0;
+    }
+
+
     public double getAverageTraditionalEngagementRate()
     {
         double sum = 0;
@@ -125,5 +135,6 @@ public class Influencer
             sum += Double.parseDouble(reach.substring(0, reach.indexOf("%")));
         }
         return sum / monthData.getLength();
+
     }
 }

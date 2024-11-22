@@ -8,6 +8,8 @@
 // -------------------------------------------------------------------------
 package prj5;
 
+import java.util.Comparator;
+
 /**
  * The DLinkedList class represents a doubly linked list which contains sentinal
  * nodes. It implements the List Interface and contains all methods to cover the
@@ -17,7 +19,9 @@ package prj5;
  * @version Nov 19, 2024
  * @param <T>
  */
-public class DLinkedList<T> implements ListInterface<T> {
+public class DLinkedList<T extends Comparable<T>>
+    implements ListInterface<T>
+{
     // ~ Fields ................................................................
     private Node<T> head;
     private Node<T> tail;
@@ -28,7 +32,8 @@ public class DLinkedList<T> implements ListInterface<T> {
      * Creates and initializes a doubly linked list by calling the init method
      * (from week 10 lab).
      */
-    public DLinkedList() {
+    public DLinkedList()
+    {
         head = new DLinkedList.Node<T>(null);
         tail = new DLinkedList.Node<T>(null);
         head.setNext(tail);
@@ -49,7 +54,8 @@ public class DLinkedList<T> implements ListInterface<T> {
      * @throws IllegalArgumentException
      *             if obj is null
      */
-    public void add(T anEntry) {
+    public void add(T anEntry)
+    {
         add(getLength(), anEntry);
     }
 
@@ -66,19 +72,24 @@ public class DLinkedList<T> implements ListInterface<T> {
      * @throws IllegalArgumentException
      *             if obj is null
      */
-    public void add(int index, T obj) {
-        if (index < 0 || size < index) {
+    public void add(int index, T obj)
+    {
+        if (index < 0 || size < index)
+        {
             throw new IndexOutOfBoundsException();
         }
-        if (obj == null) {
-            throw new IllegalArgumentException("Cannot add null "
-                + "objects to a list");
+        if (obj == null)
+        {
+            throw new IllegalArgumentException(
+                "Cannot add null " + "objects to a list");
         }
         Node<T> nodeAfter;
-        if (index == size) {
+        if (index == size)
+        {
             nodeAfter = tail;
         }
-        else {
+        else
+        {
             nodeAfter = getNodeAtIndex(index);
         }
         Node<T> addition = new Node<T>(obj);
@@ -96,13 +107,16 @@ public class DLinkedList<T> implements ListInterface<T> {
      * @param index
      * @return node at index
      */
-    private Node<T> getNodeAtIndex(int index) {
-        if (index < 0 || getLength() <= index) {
-            throw new IndexOutOfBoundsException("No element exists at "
-                + index);
+    private Node<T> getNodeAtIndex(int index)
+    {
+        if (index < 0 || getLength() <= index)
+        {
+            throw new IndexOutOfBoundsException(
+                "No element exists at " + index);
         }
         Node<T> current = head.next(); // as we have a sentinel node
-        for (int i = 0; i < index; i++) {
+        for (int i = 0; i < index; i++)
+        {
             current = current.next();
         }
         return current;
@@ -117,7 +131,8 @@ public class DLinkedList<T> implements ListInterface<T> {
      *            the position of the object to be removed
      * @return T The object that was removed
      */
-    public T removePosition(int givenPosition) {
+    public T removePosition(int givenPosition)
+    {
         Node<T> nodeToBeRemoved = getNodeAtIndex(givenPosition);
         nodeToBeRemoved.previous().setNext(nodeToBeRemoved.next());
         nodeToBeRemoved.next().setPrevious(nodeToBeRemoved.previous());
@@ -131,7 +146,8 @@ public class DLinkedList<T> implements ListInterface<T> {
      *
      * @postcondition size = 0 and all of the nodes are removed
      */
-    public void clear() {
+    public void clear()
+    {
         head = new DLinkedList.Node<T>(null);
         tail = new DLinkedList.Node<T>(null);
         head.setNext(tail);
@@ -151,7 +167,8 @@ public class DLinkedList<T> implements ListInterface<T> {
      *            position
      * @return The replaced element
      */
-    public T replace(int givenPosition, T newEntry) {
+    public T replace(int givenPosition, T newEntry)
+    {
         Node<T> replaceNode = getNodeAtIndex(givenPosition);
         T data = replaceNode.getData();
         replaceNode.setData(newEntry);
@@ -168,7 +185,8 @@ public class DLinkedList<T> implements ListInterface<T> {
      * @throws IndexOutOfBoundsException
      *             if there is not a node at the given index
      */
-    public T getEntry(int givenPosition) {
+    public T getEntry(int givenPosition)
+    {
         return getNodeAtIndex(givenPosition).getData();
     }
 
@@ -179,10 +197,12 @@ public class DLinkedList<T> implements ListInterface<T> {
      *
      * @return an array representing the list
      */
-    public Object[] toArray() {
+    public Object[] toArray()
+    {
         Object[] arr = new Object[size];
         Node<T> curr = head.next();
-        for (int i = 0; i < arr.length; i++) {
+        for (int i = 0; i < arr.length; i++)
+        {
             arr[i] = curr.getData();
             curr = curr.next();
         }
@@ -199,7 +219,8 @@ public class DLinkedList<T> implements ListInterface<T> {
      * @throws IndexOutOfBoundsException
      *             if an element does not exist at the given index
      */
-    public boolean contains(T anEntry) {
+    public boolean contains(T anEntry)
+    {
         return lastIndexOf(anEntry) != -1; // taken from week 10 lab
     }
 
@@ -211,10 +232,13 @@ public class DLinkedList<T> implements ListInterface<T> {
      *            the object to look for
      * @return the last position of it. -1 If it is not in the list
      */
-    public int lastIndexOf(T obj) {
+    public int lastIndexOf(T obj)
+    {
         Node<T> current = tail.previous();
-        for (int i = getLength() - 1; i >= 0; i--) {
-            if (current.getData().equals(obj)) {
+        for (int i = getLength() - 1; i >= 0; i--)
+        {
+            if (current.getData().equals(obj))
+            {
                 return i;
             }
             current = current.previous();
@@ -228,7 +252,8 @@ public class DLinkedList<T> implements ListInterface<T> {
      *
      * @return the length of the current list
      */
-    public int getLength() {
+    public int getLength()
+    {
         return size;
     }
 
@@ -238,7 +263,8 @@ public class DLinkedList<T> implements ListInterface<T> {
      *
      * @return if the array is empty
      */
-    public boolean isEmpty() {
+    public boolean isEmpty()
+    {
         return size == 0;
     }
 
@@ -254,8 +280,10 @@ public class DLinkedList<T> implements ListInterface<T> {
      * @param last
      *            The last element in the array
      */
-    public void sort(T[] array, int first, int last) {
-        for (int i = first + 1; i <= last; i++) {
+    public void sort(T[] array, int first, int last)
+    {
+        for (int i = first + 1; i <= last; i++)
+        {
             insertInOrder(array[i], array, first, i - 1);
         }
     }
@@ -274,9 +302,11 @@ public class DLinkedList<T> implements ListInterface<T> {
      * @param end
      *            The end of the array
      */
-    private void insertInOrder(T anEntry, T[] a, int begin, int end) {
+    private void insertInOrder(T anEntry, T[] a, int begin, int end)
+    {
         int index = end;
-        while ((index >= begin) && anEntry.compareTo(a[index]) < 0) {
+        while ((index >= begin) && anEntry.compareTo(a[index]) < 0)
+        {
             a[index + 1] = a[index];
             index--;
         }
@@ -294,7 +324,8 @@ public class DLinkedList<T> implements ListInterface<T> {
      * @author Mark Wiggans (mmw125)
      * @version 4/14/2015
      */
-    private static class Node<E> {
+    private static class Node<E>
+    {
         private Node<E> next;
         private Node<E> previous;
         private E data;
@@ -305,7 +336,8 @@ public class DLinkedList<T> implements ListInterface<T> {
          * @param d
          *            the data to put inside the node
          */
-        public Node(E d) {
+        public Node(E d)
+        {
             data = d;
         }
 
@@ -316,7 +348,8 @@ public class DLinkedList<T> implements ListInterface<T> {
          * @param n
          *            the node after this one
          */
-        public void setNext(Node<E> n) {
+        public void setNext(Node<E> n)
+        {
             next = n;
         }
 
@@ -327,7 +360,8 @@ public class DLinkedList<T> implements ListInterface<T> {
          * @param n
          *            the node before this one
          */
-        public void setPrevious(Node<E> n) {
+        public void setPrevious(Node<E> n)
+        {
             previous = n;
         }
 
@@ -337,7 +371,8 @@ public class DLinkedList<T> implements ListInterface<T> {
          *
          * @return the next node
          */
-        public Node<E> next() {
+        public Node<E> next()
+        {
             return next;
         }
 
@@ -347,7 +382,8 @@ public class DLinkedList<T> implements ListInterface<T> {
          *
          * @return the node before this one
          */
-        public Node<E> previous() {
+        public Node<E> previous()
+        {
             return previous;
         }
 
@@ -357,7 +393,8 @@ public class DLinkedList<T> implements ListInterface<T> {
          *
          * @return the data in the node
          */
-        public E getData() {
+        public E getData()
+        {
             return data;
         }
 
@@ -368,7 +405,8 @@ public class DLinkedList<T> implements ListInterface<T> {
          * @param data
          *            The new data being set to
          */
-        public void setData(E data) {
+        public void setData(E data)
+        {
             this.data = data;
         }
     }
