@@ -66,4 +66,13 @@ public class InfluencerTest
         assertEquals(influencer.getMonthData().getLength(), 1);
 
     }
+    
+    public void testGetAverageTraditionalEngagementRate() {
+        assertEquals(0, influencer.getAverageTraditionalEngagementRate(), 0.1);
+    }
+    
+    public void testGetAverageReachEngagementRate() {
+        assertEquals(0, influencer.getAverageReachEngagementRate(), 0.1);
+    }
+    
 }

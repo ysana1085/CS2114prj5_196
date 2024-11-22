@@ -44,6 +44,7 @@ public class Influencer
         this.channelName = channelName;
         this.country = country;
         this.mainTopic = mainTopic;
+        this.monthData = new AList<InteractionData>();
     }
 
 
