@@ -17,15 +17,12 @@ import student.TestCase;
  * @author bradl
  * @version Nov 20, 2024
  */
-public class InfluencerTest
-    extends TestCase
-{
+public class InfluencerTest extends TestCase {
     // ~ Fields ................................................................
     private Influencer influencer;
 
     // ~ Constructors ..........................................................
-    public void setUp()
-    {
+    public void setUp() {
         influencer = new Influencer("ab", "cd", "ef", "gh");
     }
 
@@ -38,33 +35,57 @@ public class InfluencerTest
      * with an empty list and with an element added by comparing the return
      * value with the expected value.
      */
-    public void testGetters()
-    {
+    public void testGetters() {
         assertEquals(influencer.getUsername(), "ab");
         assertEquals(influencer.getChannelName(), "cd");
         assertEquals(influencer.getCountry(), "ef");
         assertEquals(influencer.getMainTopic(), "gh");
         AList<InteractionData> list = new AList<InteractionData>();
         assertTrue(influencer.getMonthData().equals(list));
-        list.add(
-            new InteractionData(
-                22876452,
-                333,
-                4650272,
-                518,
-                170095,
-                "January"));
-        influencer.getMonthData().add(
-            new InteractionData(
-                22876452,
-                333,
-                4650272,
-                518,
-                170095,
-                "January"));
+        list.add(new InteractionData(22876452, 333, 4650272, 518, 170095,
+            "January"));
+        influencer.getMonthData().add(new InteractionData(22876452, 333,
+            4650272, 518, 170095, "January"));
         assertTrue(influencer.getMonthData().equals(list));
         assertEquals(influencer.getMonthData().getLength(), 1);
 
+    }
+
+
+    public void testComparwToTraditional() {
+        Influencer inflencer2 = new Influencer("ab", "cd", "ef", "gz");
+
+        influencer.setIsTraditional(true);
+        inflencer2.setIsTraditional(true);
+
+        assertTrue(influencer.compareTo(inflencer2) != 0);
+    }
+
+
+    public void testCompareToReach() {
+        Influencer influencer2 = new Influencer("ab", "bc", "ef", "gz");
+        influencer.setIsTraditional(false);
+        influencer2.setIsTraditional(true);
+        assertTrue(influencer.compareTo(influencer2) != 0);
+
+    }
+
+
+    public void testGetAverageReachEngagementRate() {
+        influencer.getMonthData().add(new InteractionData(100, 5, 1000, 50,
+            5000, "January"));
+        double avgEngag = influencer.getAverageReachEngagementRate();
+        double expectedOutput = ((50.0 + 100) / 5000) * 100;
+        assertEquals(expectedOutput, avgEngag, 0.1);
+    }
+
+
+    public void testGetAverageTraditionalEngagementRate()
+    {
+        influencer.getMonthData().add(new InteractionData(100, 5, 1000, 50, 5000, "January"));
+        double avgEngag = influencer.getAverageReachEngagementRate();
+        double expectedOutput = ((50.0 + 100) / 5000)*100;
+        assertEquals(expectedOutput, avgEngag, 0.1);
     }
 
     // todo: implement a couple test methods
