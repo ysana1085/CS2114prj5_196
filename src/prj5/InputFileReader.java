@@ -12,22 +12,27 @@ import cs1705.IOHelper;
  * 
  */
 
-public class InputFileReader {
+public class InputFileReader
+{
 
     public static final int VALUES = 10;
     private DLinkedList<Influencer> influencers;
 
-    public InputFileReader(String arg) {
+    public InputFileReader(String arg)
+    {
         influencers = this.readAnalyticsFile(arg);
         outputAnalyticsFile();
     }
 
 
-    private int toInt(String str) {
-        try {
+    private int toInt(String str)
+    {
+        try
+        {
             return Integer.parseInt(str);
         }
-        catch (Exception e) {
+        catch (Exception e)
+        {
             return 0;
         }
     }
@@ -35,11 +40,13 @@ public class InputFileReader {
 
     public DLinkedList<Influencer> readAnalyticsFile(String file)
         throws ParseException,
-        FileNotFoundException {
+        FileNotFoundException
+    {
 
         Scanner inStream = IOHelper.createScanner(file);
         inStream.nextLine();// skip header
-        while (inStream.hasNextLine()) {
+        while (inStream.hasNextLine())
+        {
 
             String line = inStream.nextLine().replaceAll(" ", "");
             String[] values = line.split(",");
@@ -53,16 +60,18 @@ public class InputFileReader {
             int followers = toInt(values[7]);
             int comments = toInt(values[8]);
             int views = toInt(values[9]);
-                if (isValidMonth(month)) {
-                    Influencer influencer = new Influencer(username, channel,
-                        country, mainTopic);
-                    influencers.add(influencer);
+            if (isValidMonth(month))
+            {
+                Influencer influencer =
+                    new Influencer(username, channel, country, mainTopic);
+                influencers.add(influencer);
 
-                }
+            }
 
-            } // end while
-            inStream.close();
-        }
+        } // end while
+        inStream.close();
+    }
+
     }
 
     private void outputAnalyticsFile()
@@ -74,10 +83,12 @@ public class InputFileReader {
         }
     }
 
-    private boolean isValidMonth(String month) {
-        String[] valid = { "January", "February", "March", "April", "May",
-            "June", "July", "August", "September", "October", "November",
-            "December" };
+
+    private boolean isValidMonth(String month)
+    {
+        String[] valid =
+            { "January", "February", "March", "April", "May", "June", "July",
+                "August", "September", "October", "November", "December" };
         return Arrays.asList(valid).contains(month);
     }
 
