@@ -10,11 +10,12 @@ import cs1705.IOHelper;
 
 public class InputFileReader {
 
-    public static final int TOKENS;
+    public static final int VALUES = 10;
     private DLinkedList<Influencer> influencers;
 
     public InputFileReader(String arg) {
         this.readAnalyticsFile(arg);
+        influencers = new DLinkedList<Influencer>();
     }
 
 
@@ -54,6 +55,8 @@ public class InputFileReader {
                 if (isValidMonth(month)) {
                     Influencer influencer = new Influencer(username, channel,
                         country, mainTopic);
+                    influencers.add(influencer);
+
                 }
 
             } // end while
