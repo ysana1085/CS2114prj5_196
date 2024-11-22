@@ -12,25 +12,32 @@ import cs1705.IOHelper;
  * 
  */
 
-public class InputFileReader {
+public class InputFileReader
+{
 
     public static final int VALUES = 10;
-    public static final String[] MONTHS = { "January", "February", "March", "April", "May",
-        "June", "July", "August", "September", "October", "November",
-        "December" };
+    public static final String[] MONTHS =
+        { "January", "February", "March", "April", "May", "June", "July",
+            "August", "September", "October", "November", "December" };
     private DLinkedList<Influencer> influencers;
 
-    public InputFileReader(String arg) throws FileNotFoundException, ParseException {
+    public InputFileReader(String arg)
+        throws FileNotFoundException,
+        ParseException, SocialMediaException
+    {
         influencers = this.readAnalyticsFile(arg);
         outputAnalyticsFile();
     }
 
 
-    private int toInt(String str) {
-        try {
+    private int toInt(String str)
+    {
+        try
+        {
             return Integer.parseInt(str);
         }
-        catch (Exception e) {
+        catch (Exception e)
+        {
             return 0;
         }
     }
@@ -38,11 +45,13 @@ public class InputFileReader {
 
     public DLinkedList<Influencer> readAnalyticsFile(String file)
         throws ParseException,
-        FileNotFoundException {
+        FileNotFoundException, SocialMediaException
+    {
 
         Scanner inStream = IOHelper.createScanner(file);
         inStream.nextLine();// skip header
-        while (inStream.hasNextLine()) {
+        while (inStream.hasNextLine())
+        {
 
             String line = inStream.nextLine().replaceAll(" ", "");
             String[] values = line.split(",");
@@ -56,38 +65,59 @@ public class InputFileReader {
             int followers = toInt(values[7]);
             int comments = toInt(values[8]);
             int views = toInt(values[9]);
-            if (isValidMonth(month)) {
-                Influencer influencer = new Influencer(username, channel,
-                    country, mainTopic);
-                influencers.add(influencer);
-            } // end while
-            inStream.close();
-        }
+            isValidMonth(month);
+            Influencer influencer =
+                new Influencer(username, channel, country, mainTopic);
+            influencers.add(influencer);
+        } // end while
+        inStream.close();
+        return influencers;
     }
 
-    private void outputAnalyticsFile() throws FileNotFoundException
+    private void outputAnalyticsFile()
+        throws FileNotFoundException
     {
         PrintWriter writer = new PrintWriter("output.txt");
-        for(int i = 0; i < influencers.getLength(); i++)
+        for (int i = 0; i < influencers.getLength(); i++)
         {
             String channel = influencers.getEntry(i).getChannelName();
-            writer.print(channel + "\ntraditional: " + influencers.getEntry(i).getAverageTraditionalEngagementRate());
+            writer.print(
+                channel + "\ntraditional: " + influencers.getEntry(i)
+                    .getAverageTraditionalEngagementRate());
             writer.print("__________\n__________");
         }
         writer.print("**********\n\n**********");
-        for(int i = 0; i < influencers.getLength(); i++)
+        for (int i = 0; i < influencers.getLength(); i++)
         {
             String channel = influencers.getEntry(i).getChannelName();
-            writer.print(channel + "\nreach: " + influencers.getEntry(i).getAverageReachEngagementRate());
+            writer.print(
+                channel + "\nreach: "
+                    + influencers.getEntry(i).getAverageReachEngagementRate());
             writer.print("__________\n__________");
         }
         writer.close();
     }
-    
-    private void isValidMonth(String month) throws SocialMediaException {
-        for(String s : MONTHS)
+
+
+    public String printAnalyticsFile()
+        throws FileNotFoundException
+    {
+        StringBuilder sb = new StringBuilder();
+        Scanner sc = IOHelper.createScanner("output.txt");
+        while (sc.hasNextLine())
         {
-            if(s.equals(month))
+            sb.append(sc.nextLine());
+        }
+        return sb.toString();
+    }
+
+
+    private void isValidMonth(String month)
+        throws SocialMediaException
+    {
+        for (String s : MONTHS)
+        {
+            if (s.equals(month))
             {
                 break;
             }

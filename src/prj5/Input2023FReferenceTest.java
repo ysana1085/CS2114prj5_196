@@ -2,6 +2,7 @@ package prj5;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.text.ParseException;
 import java.util.Scanner;
 import student.testingsupport.annotations.Hint;
 
@@ -30,10 +31,12 @@ public class Input2023FReferenceTest
      * Test the program with data the students haven't seen Gathers the output
      * from StdOut and compares it to the expect output (stored in
      * InfluencerOutput_2.txt)
+     * @throws SocialMediaException 
+     * @throws ParseException 
      */
     @Hint("The main method is not working properly with different input files")
     public void testMainFuzzyEqualsDifferentInput()
-        throws java.io.IOException
+        throws java.io.IOException, ParseException, SocialMediaException
     {
 
         ProjectRunner.main(new String[] { "SampleInput1_2023.csv" });
@@ -70,10 +73,12 @@ public class Input2023FReferenceTest
      * Test the program with data the students haven't seen Gathers the output
      * from StdOut and compares it to the expect output (stored in
      * InfluencerOutput_2.txt)
+     * @throws SocialMediaException 
+     * @throws ParseException 
      */
     @Hint("The main method is not working properly with the input file from the instructions")
     public void testMainFuzzyEqualsSameInput()
-        throws java.io.IOException
+        throws java.io.IOException, ParseException, SocialMediaException
     {
 
         ProjectRunner.main(new String[] { "SampleInput2_2023.csv" });
@@ -109,10 +114,12 @@ public class Input2023FReferenceTest
      * Test the program with data the students haven't seen Gathers the output
      * from StdOut and compares it to the expect output (stored in
      * InfluencerOutput_2.txt)
+     * @throws SocialMediaException 
+     * @throws ParseException 
      */
     @Hint("The main method is not working properly with the input file from the instructions")
     public void testMainFuzzyEqualsSameInputLast()
-        throws java.io.IOException
+        throws java.io.IOException, ParseException, SocialMediaException
     {
 
         ProjectRunner.main(new String[] { "SampleInput3_2023.csv" });
@@ -150,11 +157,13 @@ public class Input2023FReferenceTest
     
     /**
      * Test the program with the data provided for students to use
+     * @throws SocialMediaException 
+     * @throws ParseException 
      */
     @Hint("The main method is not working properly with input file "
         + "SampleInput1_2022.csv")
     public void testMain01()
-        throws java.io.IOException
+        throws java.io.IOException, ParseException, SocialMediaException
     {
 
         ProjectRunner.main(new String[] { "SampleInput1_2023.csv" });
@@ -262,7 +271,7 @@ public class Input2023FReferenceTest
 
     @Hint("The main method is not working properly with a the input file provided in instructions")
     public void testMain02()
-        throws java.io.IOException
+        throws java.io.IOException, ParseException, SocialMediaException
     {
 
         ProjectRunner.main(new String[] { "SampleInput1_2023.csv" });

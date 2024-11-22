@@ -7,6 +7,9 @@
 
 package prj5;
 
+import java.io.FileNotFoundException;
+import java.text.ParseException;
+
 // -------------------------------------------------------------------------
 /**
  * Initializes a file reader to create an output file for social media
@@ -20,8 +23,14 @@ public class ProjectRunner
 {
     // ----------------------------------------------------------
     /**
-     * Initializes a file reader based on passed runtime arguments or a default file.
-     * @param args the provided array of runtime arguments
+     * Initializes a file reader based on passed runtime arguments or a default
+     * file.
+     * 
+     * @param args
+     *            the provided array of runtime arguments
+     * @throws SocialMediaException
+     * @throws ParseException
+     * @throws FileNotFoundException
      */
     // ~ Fields ................................................................
 
@@ -29,6 +38,9 @@ public class ProjectRunner
 
     // ~Public Methods ........................................................
     public static void main(String[] args)
+        throws FileNotFoundException,
+        ParseException,
+        SocialMediaException
     {
         InputFileReader filer;
         boolean showGUI = false;
@@ -48,7 +60,7 @@ public class ProjectRunner
              * TODO: For intermediate Submission - Should print the data on the
              * console
              */
-            
+            System.out.println(filer.printAnalyticsFile());
         }
         if (showGUI)
         {
