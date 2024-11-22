@@ -33,7 +33,8 @@ public class InputFileReader
         ParseException,
         SocialMediaException
     {
-        influencers = this.readAnalyticsFile(arg);
+        influencers = new DLinkedList<Influencer>();
+        readAnalyticsFile(arg);
         outputAnalyticsFile();
     }
 
@@ -129,7 +130,7 @@ public class InputFileReader
         {
             if (s.equals(month))
             {
-                break;
+                return;
             }
         }
         throw new SocialMediaException("invalid month");
