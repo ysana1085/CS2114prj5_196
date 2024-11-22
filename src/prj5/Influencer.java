@@ -29,17 +29,21 @@ public class Influencer
      *            the country at which the influencer is located
      * @param mainTopic
      *            the main topic this influencer posts about
+     * @param monthData 
+     *            list of months of the influencer
      */
     public Influencer(
         String username,
         String channelName,
         String country,
-        String mainTopic)
+        String mainTopic, 
+        AList<InteractionData> monthData)
     {
         this.username = username;
         this.channelName = channelName;
         this.country = country;
         this.mainTopic = mainTopic;
+        this.monthData = new AList<InteractionData>();
     }
 
 
