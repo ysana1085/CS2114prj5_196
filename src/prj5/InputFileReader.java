@@ -16,10 +16,15 @@ public class InputFileReader
 {
 
     public static final int VALUES = 10;
+    public static final String[] MONTHS = { "January", "February", "March", "April", "May",
+        "June", "July", "August", "September", "October", "November",
+        "December" };
     private DLinkedList<Influencer> influencers;
 
     public InputFileReader(String arg)
     {
+
+    public InputFileReader(String arg) throws FileNotFoundException, ParseException {
         influencers = this.readAnalyticsFile(arg);
         outputAnalyticsFile();
     }
@@ -60,6 +65,7 @@ public class InputFileReader
             int followers = toInt(values[7]);
             int comments = toInt(values[8]);
             int views = toInt(values[9]);
+<<<<<<< HEAD
             if (isValidMonth(month))
             {
                 Influencer influencer =
@@ -72,16 +78,35 @@ public class InputFileReader
         inStream.close();
     }
 
+            if (isValidMonth(month)) {
+                Influencer influencer = new Influencer(username, channel,
+                    country, mainTopic);
+                influencers.add(influencer);
+            } // end while
+            inStream.close();
+        }
+
     }
 
-    private void outputAnalyticsFile()
+    private void outputAnalyticsFile() throws FileNotFoundException
     {
         PrintWriter writer = new PrintWriter("output.txt");
         for(int i = 0; i < influencers.getLength(); i++)
         {
-            writer.print(influencers.getEntry(i).getChannelName() + "\ntraditional: " + influencers.getEntry(i).getMonthData().);
+            String channel = influencers.getEntry(i).getChannelName();
+            writer.print(channel + "\ntraditional: " + influencers.getEntry(i).getAverageTraditionalEngagementRate());
+            writer.print("__________\n__________");
         }
+        writer.print("**********\n\n**********");
+        for(int i = 0; i < influencers.getLength(); i++)
+        {
+            String channel = influencers.getEntry(i).getChannelName();
+            writer.print(channel + "\nreach: " + influencers.getEntry(i).getAverageReachEngagementRate());
+            writer.print("__________\n__________");
+        }
+        writer.close();
     }
+<<<<<<< HEAD
 
 
     private boolean isValidMonth(String month)
@@ -90,6 +115,17 @@ public class InputFileReader
             { "January", "February", "March", "April", "May", "June", "July",
                 "August", "September", "October", "November", "December" };
         return Arrays.asList(valid).contains(month);
+=======
+    
+    private void isValidMonth(String month) throws SocialMediaException {
+        for(String s : MONTHS)
+        {
+            if(s.equals(month))
+            {
+                break;
+            }
+        }
+        throw new SocialMediaException("invalid month");
+>>>>>>> 065426807fccd4e820aa33bf8cc05a9bb39683f6
     }
-
 }
