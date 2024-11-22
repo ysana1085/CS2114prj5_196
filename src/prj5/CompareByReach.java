@@ -5,11 +5,11 @@ import list.AList;
 
 // -------------------------------------------------------------------------
 /**
- * Compare two social media influencers by reach engagement rate, either
- * on a monthly or quarterly scale.
+ * Compare two social media influencers by reach engagement rate, either on a
+ * monthly or quarterly scale.
  * 
- *  @author bradl
- *  @version Nov 19, 2024
+ * @author bradl
+ * @version Nov 19, 2024
  */
 public class CompareByReach
     implements Comparator<Influencer>
@@ -30,12 +30,14 @@ public class CompareByReach
         for (int i = 0; i < leftData.getLength(); i++)
         {
             String engagement = leftData.getEntry(i).getReachEngagementRate();
-            leftRate += Double.parseDouble(engagement.substring(0, engagement.indexOf("%")));
+            leftRate += Double
+                .parseDouble(engagement.substring(0, engagement.indexOf("%")));
         }
         for (int i = 0; i < rightData.getLength(); i++)
         {
             String engagement = rightData.getEntry(i).getReachEngagementRate();
-            rightRate += Double.parseDouble(engagement.substring(0, engagement.indexOf("%")));
+            rightRate += Double
+                .parseDouble(engagement.substring(0, engagement.indexOf("%")));
         }
         return Double.compare(leftRate, rightRate);
     }
