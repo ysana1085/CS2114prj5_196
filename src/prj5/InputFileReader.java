@@ -1,6 +1,7 @@
 package prj5;
 
 import java.io.FileNotFoundException;
+import java.io.PrintWriter;
 import java.text.ParseException;
 import java.util.Arrays;
 import java.util.Scanner;
@@ -17,8 +18,8 @@ public class InputFileReader {
     private DLinkedList<Influencer> influencers;
 
     public InputFileReader(String arg) {
-        this.readAnalyticsFile(arg);
-        influencers = new DLinkedList<Influencer>();
+        influencers = this.readAnalyticsFile(arg);
+        outputAnalyticsFile();
     }
 
 
@@ -52,9 +53,6 @@ public class InputFileReader {
             int followers = toInt(values[7]);
             int comments = toInt(values[8]);
             int views = toInt(values[9]);
-
-            if (month.equals("January") || month.equals("February") || month
-                .equals("March")) {
                 if (isValidMonth(month)) {
                     Influencer influencer = new Influencer(username, channel,
                         country, mainTopic);
@@ -67,6 +65,14 @@ public class InputFileReader {
         }
     }
 
+    private void outputAnalyticsFile()
+    {
+        PrintWriter writer = new PrintWriter("output.txt");
+        for(int i = 0; i < influencers.getLength(); i++)
+        {
+            writer.print(influencers.getEntry(i).getChannelName() + "\ntraditional: " + influencers.getEntry(i).getMonthData().);
+        }
+    }
 
     private boolean isValidMonth(String month) {
         String[] valid = { "January", "February", "March", "April", "May",
