@@ -1,5 +1,5 @@
 package prj5;
-public class e
+public class ProjectRunner
 {
     //~ Fields ................................................................
 
