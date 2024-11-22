@@ -1,7 +1,10 @@
+package prj5;
+
 import java.io.FileNotFoundException;
 import java.text.ParseException;
 import java.util.Arrays;
 import java.util.Scanner;
+
 import cs1705.IOHelper;
 
 /**
