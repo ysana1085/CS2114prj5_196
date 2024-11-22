@@ -1,7 +1,7 @@
 package prj5;
+
 import java.util.Comparator;
 import list.AList;
-import src.prj5.InteractionData;
 
 // -------------------------------------------------------------------------
 /**
@@ -27,13 +27,15 @@ public class CompareByReach
         double rightRate = 0.0;
         AList<InteractionData> leftData = left.getMonthData();
         AList<InteractionData> rightData = right.getMonthData();
-        for (InteractionData data : leftData)
+        for (int i = 0; i < leftData.getLength(); i++)
         {
-            leftRate += data.getReachEngagementRate();
+            String engagement = leftData.getEntry(i).getReachEngagementRate();
+            leftRate += Double.parseDouble(engagement.substring(0, engagement.indexOf("%")));
         }
-        for (InteractionData data : rightData)
+        for (int i = 0; i < rightData.getLength(); i++)
         {
-            rightRate += data.getReachEngagementRate();
+            String engagement = rightData.getEntry(i).getReachEngagementRate();
+            rightRate += Double.parseDouble(engagement.substring(0, engagement.indexOf("%")));
         }
         return Double.compare(leftRate, rightRate);
     }
@@ -42,7 +44,7 @@ public class CompareByReach
     // ----------------------------------------------------------
     /**
      * Determines which set of monthly interaction data has a greater
-     * reach engagement rate.
+     * traditional engagement rate.
      * 
      * @param left
      *            the first interaction data object
@@ -54,8 +56,10 @@ public class CompareByReach
      */
     public int compareByMonth(InteractionData left, InteractionData right)
     {
+        String leftRate = left.getReachEngagementRate();
+        String rightRate = right.getReachEngagementRate();
         return Double.compare(
-            left.getReachEngagementRate(),
-            right.getReachEngagementRate());
+            Double.parseDouble(leftRate.substring(0, leftRate.indexOf("%"))),
+            Double.parseDouble(rightRate.substring(0, rightRate.indexOf("%"))));
     }
 }

@@ -1,7 +1,6 @@
 package prj5;
 import java.util.Comparator;
 import list.AList;
-import src.prj5.InteractionData;
 
 // -------------------------------------------------------------------------
 /**
@@ -27,13 +26,15 @@ public class CompareByTraditional
         double rightRate = 0.0;
         AList<InteractionData> leftData = left.getMonthData();
         AList<InteractionData> rightData = right.getMonthData();
-        for (InteractionData data : leftData)
+        for (int i = 0; i < leftData.getLength(); i++)
         {
-            leftRate += data.getTraditionalEngagementRate();
+            String engagement = leftData.getEntry(i).getTraditionalEngagementRate();
+            leftRate += Double.parseDouble(engagement.substring(0, engagement.indexOf("%")));
         }
-        for (InteractionData data : rightData)
+        for (int i = 0; i < rightData.getLength(); i++)
         {
-            rightRate += data.getTraditionalEngagementRate();
+            String engagement = rightData.getEntry(i).getTraditionalEngagementRate();
+            rightRate += Double.parseDouble(engagement.substring(0, engagement.indexOf("%")));
         }
         return Double.compare(leftRate, rightRate);
     }
@@ -54,8 +55,10 @@ public class CompareByTraditional
      */
     public int compareByMonth(InteractionData left, InteractionData right)
     {
+        String leftRate = left.getTraditionalEngagementRate();
+        String rightRate = right.getTraditionalEngagementRate();
         return Double.compare(
-            left.getReachEngagementRate(),
-            right.getReachEngagementRate());
+            Double.parseDouble(leftRate.substring(0, leftRate.indexOf("%"))),
+            Double.parseDouble(rightRate.substring(0, rightRate.indexOf("%"))));
     }
 }

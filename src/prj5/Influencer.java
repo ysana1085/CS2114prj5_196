@@ -1,6 +1,5 @@
 package prj5;
 import list.AList;
-import src.prj5.InteractionData;
 
 public class Influencer implements Comparable<Influencer>
 {
