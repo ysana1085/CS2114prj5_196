@@ -65,7 +65,7 @@ public class InfluencerTest extends TestCase {
     public void testCompareToReach() {
         Influencer influencer2 = new Influencer("ab", "bc", "ef", "gz");
         influencer.setIsTraditional(false);
-        influencer2.setIsTraditional(true);
+        influencer2.setIsTraditional(false);
         assertTrue(influencer.compareTo(influencer2) != 0);
 
     }
