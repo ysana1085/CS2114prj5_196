@@ -7,7 +7,7 @@ import list.AList;
  * @author
  * @version Nov 21, 2024
  */
-public abstract class Influencer
+public class Influencer
     implements Comparable<Influencer>
 {
     // ~ Fields ................................................................
@@ -98,5 +98,13 @@ public abstract class Influencer
     public AList<InteractionData> getMonthData()
     {
         return monthData;
+    }
+
+
+    @Override
+    public int compareTo(Influencer o)
+    {
+        // TODO Auto-generated method stub
+        return 0;
     }
 }
