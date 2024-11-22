@@ -17,7 +17,7 @@ package prj5;
  * @version Nov 19, 2024
  * @param <T>
  */
-public class DLinkedList<T extends Comparable<T>> implements ListInterface<T> {
+public class DLinkedList<T extends Comparable<Influencer>> implements ListInterface<T> {
     // ~ Fields ................................................................
     private Node<T> head;
     private Node<T> tail;
