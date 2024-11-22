@@ -37,8 +37,8 @@ public class Influencer
         String username,
         String channelName,
         String country,
-        String mainTopic,
-        AList<InteractionData> monthData)
+        String mainTopic)
+
     {
         this.username = username;
         this.channelName = channelName;
