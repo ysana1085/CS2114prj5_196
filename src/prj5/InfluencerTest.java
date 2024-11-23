@@ -68,5 +68,15 @@ public class InfluencerTest extends TestCase {
 
     }
 
-    // todo: implement a couple test methods
+    public void testfirstQuarterTraditionalEngagementRate() {
+        
+    }
+    
+    public void firstQuarterReachEngagementRate() {
+        
+    }
+    
+    public void testEquals() {
+        
+    }
 }
