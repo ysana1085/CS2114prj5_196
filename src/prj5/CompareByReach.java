@@ -30,23 +30,9 @@ public class CompareByReach
     @Override
     public int compare(Influencer left, Influencer right)
     {
-        double leftRate = 0.0;
-        double rightRate = 0.0;
-        AList<InteractionData> leftData = left.getMonthData();
-        AList<InteractionData> rightData = right.getMonthData();
-        for (int i = 0; i < leftData.getLength(); i++)
-        {
-            String engagement = leftData.getEntry(i).getReachEngagementRate();
-            leftRate += Double
-                .parseDouble(engagement.substring(0, engagement.indexOf("%")));
-        }
-        for (int i = 0; i < rightData.getLength(); i++)
-        {
-            String engagement = rightData.getEntry(i).getReachEngagementRate();
-            rightRate += Double
-                .parseDouble(engagement.substring(0, engagement.indexOf("%")));
-        }
-        return Double.compare(leftRate, rightRate);
+        return Double.compare(
+            Double.parseDouble(right.firstQuarterReachEngagementRate()),
+            Double.parseDouble(left.firstQuarterReachEngagementRate()));
     }
 
 
@@ -68,7 +54,7 @@ public class CompareByReach
         String leftRate = left.getReachEngagementRate();
         String rightRate = right.getReachEngagementRate();
         return Double.compare(
-            Double.parseDouble(leftRate.substring(0, leftRate.indexOf("%"))),
-            Double.parseDouble(rightRate.substring(0, rightRate.indexOf("%"))));
+            Double.parseDouble(leftRate),
+            Double.parseDouble(rightRate));
     }
 }

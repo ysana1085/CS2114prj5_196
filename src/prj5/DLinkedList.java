@@ -9,6 +9,7 @@
 package prj5;
 
 import java.util.Comparator;
+import java.lang.reflect.Array;
 
 /**
  * The DLinkedList class represents a doubly linked list which contains sentinal
@@ -200,7 +201,7 @@ public class DLinkedList<T>
     @SuppressWarnings("unchecked")
     public T[] toArray()
     {
-        T[] arr = (T[]) new Object[size];
+        T[] arr = (T[]) new Influencer[size];
         Node<T> curr = head.next();
         for (int i = 0; i < arr.length; i++)
         {
@@ -209,9 +210,7 @@ public class DLinkedList<T>
         }
         return arr;
     }
-
-
-    /**
+     /**
      * Checks if the list contains the given entry
      *
      * @param anEntry
@@ -312,6 +311,26 @@ public class DLinkedList<T>
             index--;
         }
         a[index + 1] = anEntry;
+    }
+    
+    public void reverse()
+    {
+        Node<T> current = head.next();
+        Node<T> temp = null;
+        
+        while(current != tail)
+        {
+            temp = current.next();
+            current.setNext(current.previous());
+            current.setPrevious(temp);
+            current = temp;
+        }
+        temp = head;
+        head = tail;
+        tail = temp;
+        
+        head.setPrevious(null);
+        tail.setNext(null);
     }
 
     /**
