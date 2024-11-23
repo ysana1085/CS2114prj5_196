@@ -112,12 +112,8 @@ public class InputFileReader
         SocialMediaException
     {
         StringBuilder sb = new StringBuilder();
-        for (int i = 0; i < influencers.getLength(); i++)
-        {
-            influencers.getEntry(i).setChannelSort(true);
-        }
-        influencers.sort(influencers.toArray(), 0,
-        influencers.getLength() - 1);
+        influencers.sort((Influencer[]) influencers.toArray(), 0,
+        influencers.getLength() - 1, new CompareByName());
         for (int i = 0; i < influencers.getLength(); i++)
         {
             String channel = influencers.getEntry(i).getChannelName();
@@ -133,8 +129,6 @@ public class InputFileReader
             sb.append(
                 channel + "\nreach: " + influencers.getEntry(i)
                     .firstQuarterReachEngagementRate());
-            String s = influencers.getEntry(i)
-                .firstQuarterReachEngagementRate();
             sb.append("\n==========\n");
         }
         return sb.toString();

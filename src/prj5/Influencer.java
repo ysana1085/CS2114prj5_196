@@ -16,15 +16,12 @@ import java.text.DecimalFormat;
  * @version Nov 21, 2024
  */
 public class Influencer
-    implements Comparable<Influencer>
 {
     // ~ Fields ................................................................
     private String username;
     private String channelName;
     private String country;
     private String mainTopic;
-    private boolean isTraditional;
-    private boolean channelSort;
     private AList<InteractionData> monthData;
 
     // ~ Constructors ..........................................................
@@ -111,37 +108,6 @@ public class Influencer
     {
         return monthData;
     }
-
-
-    public void setIsTraditional(boolean b)
-    {
-        isTraditional = b;
-    }
-
-
-    public void setChannelSort(boolean b)
-    {
-        channelSort = b;
-    }
-
-
-    @Override
-    public int compareTo(Influencer other)
-    {
-        if (isTraditional)
-        {
-            CompareByTraditional comp = new CompareByTraditional();
-            return comp.compare(this, other);
-        }
-        if (channelSort)
-        {
-            return this.channelName.toLowerCase()
-                .compareTo(other.channelName.toLowerCase());
-        }
-        CompareByReach comp = new CompareByReach();
-        return comp.compare(this, other);
-    }
-
 
     public String firstQuarterTraditionalEngagementRate()
         throws SocialMediaException

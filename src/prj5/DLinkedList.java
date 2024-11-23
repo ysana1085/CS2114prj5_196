@@ -19,7 +19,7 @@ import java.util.Comparator;
  * @version Nov 19, 2024
  * @param <T>
  */
-public class DLinkedList<T extends Comparable<T>>
+public class DLinkedList<T>
     implements ListInterface<T>
 {
     // ~ Fields ................................................................
