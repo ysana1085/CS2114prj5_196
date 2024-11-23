@@ -1,3 +1,10 @@
+// Virginia Tech Honor Code Pledge:
+//
+// As a Hokie, I will conduct myself with honor and integrity at all times.
+// I will not lie, cheat, or steal, nor will I accept the actions of those who
+// do.
+// -- Bradley Roos (bradleyroos@vt.edu)
+
 package prj5;
 
 import java.util.Comparator;
@@ -5,8 +12,8 @@ import list.AList;
 
 // -------------------------------------------------------------------------
 /**
- * Compare two social media influencers by traditional engagement rate, either
- * on a monthly or quarterly scale.
+ * Compare two social media influencers by Traditional engagement rate, either on a
+ * monthly or quarterly scale.
  * 
  * @author bradl
  * @version Nov 19, 2024
@@ -23,25 +30,23 @@ public class CompareByTraditional
     @Override
     public int compare(Influencer left, Influencer right)
     {
-        double leftRate = 0.0;
-        double rightRate = 0.0;
-        AList<InteractionData> leftData = left.getMonthData();
-        AList<InteractionData> rightData = right.getMonthData();
-        for (int i = 0; i < leftData.getLength(); i++)
+        try
         {
-            String engagement =
-                leftData.getEntry(i).getTraditionalEngagementRate();
-            leftRate += Double
-                .parseDouble(engagement.substring(0, engagement.indexOf("%")));
+            return Double.compare(
+                Double.parseDouble(right.firstQuarterTraditionalEngagementRate()),
+                Double.parseDouble(left.firstQuarterTraditionalEngagementRate()));
         }
-        for (int i = 0; i < rightData.getLength(); i++)
+        catch (NumberFormatException e)
         {
-            String engagement =
-                rightData.getEntry(i).getTraditionalEngagementRate();
-            rightRate += Double
-                .parseDouble(engagement.substring(0, engagement.indexOf("%")));
+            // TODO Auto-generated catch block
+            e.printStackTrace();
         }
-        return Double.compare(leftRate, rightRate);
+        catch (SocialMediaException e)
+        {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        return 0;
     }
 
 
@@ -63,7 +68,7 @@ public class CompareByTraditional
         String leftRate = left.getTraditionalEngagementRate();
         String rightRate = right.getTraditionalEngagementRate();
         return Double.compare(
-            Double.parseDouble(leftRate.substring(0, leftRate.indexOf("%"))),
-            Double.parseDouble(rightRate.substring(0, rightRate.indexOf("%"))));
+            Double.parseDouble(leftRate),
+            Double.parseDouble(rightRate));
     }
 }

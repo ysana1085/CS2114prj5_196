@@ -74,8 +74,8 @@ public class CompareByReachTest
                 518,
                 170095,
                 "February"));
-        assertEquals(comp.compare(left, right), -1);
-        assertEquals(comp.compare(right, left), 1);
+        assertEquals(comp.compare(left, right), 1);
+        assertEquals(comp.compare(right, left), -1);
     }
 
 
