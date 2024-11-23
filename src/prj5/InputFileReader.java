@@ -148,7 +148,7 @@ public class InputFileReader
 
 
     private void isValidMonth(String month)
-        throws SocialMediaException
+        throws SocialMediaException, ParseException
     {
         for (String s : MONTHS)
         {

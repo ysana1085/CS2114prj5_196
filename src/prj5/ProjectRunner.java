@@ -1,6 +1,7 @@
 package prj5;
 
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.text.ParseException;
 
 // -------------------------------------------------------------------------
@@ -27,9 +28,7 @@ public class ProjectRunner
      */
     // ~Public Methods ........................................................
     public static void main(String[] args)
-        throws FileNotFoundException,
-        ParseException,
-        SocialMediaException
+        throws IOException, SocialMediaException, ParseException
     {
         InputFileReader filer;
         boolean showGUI = false;
