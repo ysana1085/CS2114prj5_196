@@ -12,8 +12,8 @@ import list.AList;
 
 // -------------------------------------------------------------------------
 /**
- * Compare two social media influencers by Traditional engagement rate, either on a
- * monthly or quarterly scale.
+ * Compare two social media influencers by Traditional engagement rate, either
+ * on a monthly or quarterly scale.
  * 
  * @author bradl
  * @version Nov 19, 2024
@@ -33,8 +33,10 @@ public class CompareByTraditional
         try
         {
             return Double.compare(
-                Double.parseDouble(right.firstQuarterTraditionalEngagementRate()),
-                Double.parseDouble(left.firstQuarterTraditionalEngagementRate()));
+                Double
+                    .parseDouble(right.firstQuarterTraditionalEngagementRate()),
+                Double
+                    .parseDouble(left.firstQuarterTraditionalEngagementRate()));
         }
         catch (NumberFormatException e)
         {

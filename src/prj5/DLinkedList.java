@@ -201,7 +201,7 @@ public class DLinkedList<T>
     @SuppressWarnings("unchecked")
     public T[] toArray()
     {
-        T[] arr = (T[]) new Influencer[size];
+        T[] arr = (T[])new Influencer[size];
         Node<T> curr = head.next();
         for (int i = 0; i < arr.length; i++)
         {
@@ -210,7 +210,9 @@ public class DLinkedList<T>
         }
         return arr;
     }
-     /**
+
+
+    /**
      * Checks if the list contains the given entry
      *
      * @param anEntry
@@ -302,7 +304,9 @@ public class DLinkedList<T>
      * @param end
      *            The end of the array
      */
-    private void insertInOrder(T anEntry, T[] a, int begin, int end, Comparator<T> comp)
+    private
+        void
+        insertInOrder(T anEntry, T[] a, int begin, int end, Comparator<T> comp)
     {
         int index = end;
         while ((index >= begin) && comp.compare(anEntry, a[index]) < 0)

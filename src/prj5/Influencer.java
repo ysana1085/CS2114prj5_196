@@ -110,6 +110,16 @@ public class Influencer
     }
 
 
+    // ----------------------------------------------------------
+    /**
+     * Calculates the first quarter traditional engagement rate with the
+     * comments, likes, and followers of a given influencer.
+     * 
+     * @return A string representation of the traditional engagement rate of the
+     *             first quarter for a given influencer.
+     * @throws SocialMediaException
+     *             when no March month is found.
+     */
     public String firstQuarterTraditionalEngagementRate()
         throws SocialMediaException
     {
@@ -122,7 +132,7 @@ public class Influencer
             {
                 sum += monthData.getEntry(i).getComments()
                     + monthData.getEntry(i).getLikes();
-                
+
                 // todo extend ifstatement to include other months in first
                 // quarter.
                 if (monthData.getEntry(i).getMonth().equals("March"))
@@ -137,6 +147,14 @@ public class Influencer
     }
 
 
+    // ----------------------------------------------------------
+    /**
+     * Calculates the first quarter traditional engagement rate with the
+     * comments, likes, and views of a given influencer.
+     * 
+     * @return A string representation of the traditional engagement rate of the
+     *             first quarter for a given influencer.
+     */
     public String firstQuarterReachEngagementRate()
     {
         DecimalFormat df = new DecimalFormat("#.#");
@@ -163,6 +181,7 @@ public class Influencer
     }
 
 
+    @Override
     public boolean equals(Object obj)
     {
         if (this == obj)

@@ -51,6 +51,7 @@ public class InputFileReader
     }
 
 
+    @SuppressWarnings({ "deprecation", "resource" })
     public DLinkedList<Influencer> readAnalyticsFile(String file)
         throws ParseException,
         FileNotFoundException,

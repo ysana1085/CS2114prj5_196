@@ -7,6 +7,14 @@
 
 package prj5;
 
+// -------------------------------------------------------------------------
+/**
+ * Represents an exception thrown when the engagement rate of a social media
+ * influencer can't be calculated due to incomplete data.
+ * 
+ * @author bradl
+ * @version Nov 22, 2024
+ */
 public class SocialMediaException
     extends Exception
 {
@@ -15,6 +23,13 @@ public class SocialMediaException
     // ~ Constructors ..........................................................
 
     // ~Public Methods ........................................................
+    // ----------------------------------------------------------
+    /**
+     * Create a new SocialMediaException object.
+     * 
+     * @param s
+     *            provided error message
+     */
     public SocialMediaException(String s)
     {
         super(s);
