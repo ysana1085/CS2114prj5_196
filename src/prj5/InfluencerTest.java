@@ -74,10 +74,21 @@ public class InfluencerTest extends TestCase {
        list.add(new InteractionData(1500, 0, 0, 100, 30, "March"));
        list.add(new InteractionData(1500, 0, 0, 100, 30, "March"));
        
+       //todo add the other comparator
+       assertEquals("53.3%",);
+       
        
     }
     
     public void firstQuarterReachEngagementRate() {
+        AList<InteractionData> list = new AList<InteractionData>();
+        list.add(new InteractionData(1500, 0, 30, 100, 0, "March"));
+        list.add(new InteractionData(1500, 0, 30, 100, 0, "March"));
+        list.add(new InteractionData(1500, 0, 30, 100, 0, "March"));
+        
+        //todo add the other comparator
+        assertEquals("53.3%",);
+        
         
     }
     
