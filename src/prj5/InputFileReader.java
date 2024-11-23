@@ -51,6 +51,15 @@ public class InputFileReader
     }
 
 
+    // ----------------------------------------------------------
+    /**
+     * Place a description of your method here.
+     * @param file
+     * @return
+     * @throws ParseException
+     * @throws FileNotFoundException
+     * @throws SocialMediaException
+     */
     @SuppressWarnings({ "deprecation", "resource" })
     public DLinkedList<Influencer> readAnalyticsFile(String file)
         throws ParseException,
@@ -110,7 +119,7 @@ public class InputFileReader
 
     public String printAnalyticsFile()
         throws FileNotFoundException,
-        SocialMediaException
+        SocialMediaException, ParseException
     {
         StringBuilder sb = new StringBuilder();
         Influencer[] arr = influencers.toArray();
