@@ -130,6 +130,7 @@ public class InputFileReader
             sb.append(
                 channel + "\nreach: "
                     + arr[i].firstQuarterReachEngagementRate());
+            String s = arr[i].firstQuarterReachEngagementRate();
             sb.append("\n==========\n");
         }
         return sb.toString();

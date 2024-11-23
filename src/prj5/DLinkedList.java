@@ -312,26 +312,6 @@ public class DLinkedList<T>
         }
         a[index + 1] = anEntry;
     }
-    
-    public void reverse()
-    {
-        Node<T> current = head.next();
-        Node<T> temp = null;
-        
-        while(current != tail)
-        {
-            temp = current.next();
-            current.setNext(current.previous());
-            current.setPrevious(temp);
-            current = temp;
-        }
-        temp = head;
-        head = tail;
-        tail = temp;
-        
-        head.setPrevious(null);
-        tail.setNext(null);
-    }
 
     /**
      * This represents a node in a doubly linked list. This node stores data, a

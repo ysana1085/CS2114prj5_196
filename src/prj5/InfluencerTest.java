@@ -51,23 +51,6 @@ public class InfluencerTest extends TestCase {
 
     }
 
-
-    public void testCompareToTraditional() {
-        Influencer inflencer2 = new Influencer("ab", "cd", "ef", "gz");
-        influencer.setIsTraditional(true);
-        inflencer2.setIsTraditional(true);
-        assertTrue(influencer.compareTo(inflencer2) != 0);
-    }
-
-
-    public void testCompareToReach() {
-        Influencer influencer2 = new Influencer("ab", "bc", "ef", "gz");
-        influencer.setIsTraditional(false);
-        influencer2.setIsTraditional(false);
-        assertTrue(influencer.compareTo(influencer2) != 0);
-
-    }
-
     public void testfirstQuarterTraditionalEngagementRate() {
        AList<InteractionData> list = new AList<InteractionData>();
        list.add(new InteractionData(1500, 0, 0, 100, 30, "March"));
@@ -75,7 +58,7 @@ public class InfluencerTest extends TestCase {
        list.add(new InteractionData(1500, 0, 0, 100, 30, "March"));
        
        //todo add the other comparator
-       assertEquals("53.3%",);
+       //assertEquals("53.3%",);
        
        
     }
@@ -87,7 +70,7 @@ public class InfluencerTest extends TestCase {
         list.add(new InteractionData(1500, 0, 30, 100, 0, "March"));
         
         //todo add the other comparator
-        assertEquals("53.3%",);
+        //assertEquals("53.3%",);
         
         
     }

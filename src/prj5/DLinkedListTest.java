@@ -164,12 +164,14 @@ public class DLinkedListTest
      */
     public void testToArray()
     {
-        list.add("january");
-        list.add("february");
-        list.add("march");
-        list.add("april");
-        Object[] arr = list.toArray();
-        Object[] result = { "january", "february", "march", "april" };
+        DLinkedList<Influencer> temp = new DLinkedList<Influencer>();
+        temp.add(new Influencer("ab", "cd", "ef", "gh"));
+        temp.add(new Influencer("ab", "ef", "ef", "gh"));
+        temp.add(new Influencer("ab", "gh", "ef", "gh"));
+        Object[] result = { new Influencer("ab", "cd", "ef", "gh"),
+            new Influencer("ab", "ef", "ef", "gh"),
+            new Influencer("ab", "gh", "ef", "gh") };
+        Influencer[] arr = temp.toArray();
         for (int i = 0; i < result.length; i++)
         {
             assertEquals(result[i], arr[i]);
@@ -191,6 +193,16 @@ public class DLinkedListTest
         assertFalse(list.contains("june"));
         list.add("june");
         assertTrue(list.contains("june"));
+        Exception exception = null;
+        try
+        {
+            list.removePosition(5);
+        }
+        catch(IndexOutOfBoundsException e)
+        {
+            exception = e;
+        }
+        assertNotNull(exception);
     }
 
 
@@ -245,25 +257,25 @@ public class DLinkedListTest
      * used.
      */
     public void testSort()
-    {   
+    {
         DLinkedList<Influencer> temp = new DLinkedList<Influencer>();
-        list.add("january");
-        list.add("february");
-        list.add("march");
-        String[] arr = new String[list.getLength()];
-        Object[] months = list.toArray();
-        // convert the obj to string for months comparison
-        for (int i = 0; i < months.length; i++)
-        {
-            arr[i] = (String)months[i];
-        }
-        //todo: fix parameter
-        String[] result = { "february", "january", "march" };
-        list.sort(arr, 0, arr.length - 1, temp);
+        temp.add(new Influencer("ab", "cd", "ef", "gh"));
+        temp.add(new Influencer("ab", "gh", "ef", "gh"));
+        temp.add(new Influencer("ab", "ef", "ef", "gh"));
+        Influencer[] arr = temp.toArray();
+        Influencer[] result = { new Influencer("ab", "cd", "ef", "gh"),
+            new Influencer("ab", "ef", "ef", "gh"),
+            new Influencer("ab", "gh", "ef", "gh") };
+        temp.sort(arr, 0, arr.length - 1, new CompareByName());
         // ensure months are sorted alphabetically
         for (int i = 0; i < arr.length; i++)
         {
-            assertEquals(result[i], arr[i]);
+            assertTrue(arr[i].equals(result[i]));
         }
+    }
+    
+    public void testGetNode()
+    {
+        
     }
 }
