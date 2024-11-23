@@ -109,6 +109,7 @@ public class Influencer
         return monthData;
     }
 
+
     public String firstQuarterTraditionalEngagementRate()
         throws SocialMediaException
     {
@@ -121,6 +122,9 @@ public class Influencer
             {
                 sum += monthData.getEntry(i).getComments()
                     + monthData.getEntry(i).getLikes();
+                
+                // todo extend ifstatement to include other months in first
+                // quarter.
                 if (monthData.getEntry(i).getMonth().equals("March"))
                 {
                     sum /= monthData.getEntry(i).getFollowers();
@@ -150,8 +154,7 @@ public class Influencer
             if (!monthData.getEntry(i).getReachEngagementRate().equals("N/A"))
             {
                 sum += ((monthData.getEntry(i).getComments()
-                    + monthData.getEntry(i).getLikes() * 1.0)
-                    / viewCount);
+                    + monthData.getEntry(i).getLikes() * 1.0) / viewCount);
             }
         }
         sum *= 100;

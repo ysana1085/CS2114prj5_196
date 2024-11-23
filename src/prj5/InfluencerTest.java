@@ -69,7 +69,12 @@ public class InfluencerTest extends TestCase {
     }
 
     public void testfirstQuarterTraditionalEngagementRate() {
-        
+       AList<InteractionData> list = new AList<InteractionData>();
+       list.add(new InteractionData(1500, 0, 0, 100, 30, "March"));
+       list.add(new InteractionData(1500, 0, 0, 100, 30, "March"));
+       list.add(new InteractionData(1500, 0, 0, 100, 30, "March"));
+       
+       
     }
     
     public void firstQuarterReachEngagementRate() {
