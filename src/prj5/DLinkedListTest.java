@@ -245,7 +245,8 @@ public class DLinkedListTest
      * used.
      */
     public void testSort()
-    {       
+    {   
+        DLinkedList<Influencer> temp = new DLinkedList<Influencer>();
         list.add("january");
         list.add("february");
         list.add("march");
@@ -258,7 +259,7 @@ public class DLinkedListTest
         }
         //todo: fix parameter
         String[] result = { "february", "january", "march" };
-        list.sort(arr, 0, arr.length - 1);
+        list.sort(arr, 0, arr.length - 1, temp);
         // ensure months are sorted alphabetically
         for (int i = 0; i < arr.length; i++)
         {
