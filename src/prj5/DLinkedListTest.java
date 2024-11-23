@@ -274,8 +274,12 @@ public class DLinkedListTest
         }
     }
     
+    // ----------------------------------------------------------
+    /**
+     * tests getNode
+     */
     public void testGetNode()
     {
-        
+        //todo setup testGetNode
     }
 }

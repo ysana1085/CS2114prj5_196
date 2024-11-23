@@ -22,6 +22,9 @@ public class InteractionDataTest
 
     // ~ Constructors ..........................................................
 
+    /**
+     * Setup method for test class
+     */
     public void setUp()
     {
         influencer =
