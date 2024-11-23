@@ -116,8 +116,8 @@ public class InputFileReader
         {
             influencers.getEntry(i).setChannelSort(true);
         }
-        // influencers.sort((Influencer[]) influencers.toArray(), 0,
-        // influencers.getLength() - 1);
+        influencers.sort(influencers.toArray(), 0,
+        influencers.getLength() - 1);
         for (int i = 0; i < influencers.getLength(); i++)
         {
             String channel = influencers.getEntry(i).getChannelName();

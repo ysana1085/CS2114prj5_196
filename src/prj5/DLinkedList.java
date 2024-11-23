@@ -197,9 +197,10 @@ public class DLinkedList<T extends Comparable<T>>
      *
      * @return an array representing the list
      */
-    public Object[] toArray()
+    @SuppressWarnings("unchecked")
+    public T[] toArray()
     {
-        Object[] arr = new Object[size];
+        T[] arr = (T[]) new Object[size];
         Node<T> curr = head.next();
         for (int i = 0; i < arr.length; i++)
         {
@@ -280,11 +281,11 @@ public class DLinkedList<T extends Comparable<T>>
      * @param last
      *            The last element in the array
      */
-    public void sort(T[] array, int first, int last)
+    public void sort(T[] array, int first, int last, Comparator<T> comp)
     {
         for (int i = first + 1; i <= last; i++)
         {
-            insertInOrder(array[i], array, first, i - 1);
+            insertInOrder(array[i], array, first, i - 1, comp);
         }
     }
 
@@ -302,10 +303,10 @@ public class DLinkedList<T extends Comparable<T>>
      * @param end
      *            The end of the array
      */
-    private void insertInOrder(T anEntry, T[] a, int begin, int end)
+    private void insertInOrder(T anEntry, T[] a, int begin, int end, Comparator<T> comp)
     {
         int index = end;
-        while ((index >= begin) && anEntry.compareTo(a[index]) < 0)
+        while ((index >= begin) && comp.compare(anEntry, a[index]) < 0)
         {
             a[index + 1] = a[index];
             index--;
