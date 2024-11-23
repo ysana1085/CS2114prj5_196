@@ -68,23 +68,5 @@ public class InfluencerTest extends TestCase {
 
     }
 
-
-    public void testGetAverageReachEngagementRate() {
-        influencer.getMonthData().add(new InteractionData(100, 5, 1000, 50,
-            5000, "January"));
-        double avgEngag = influencer.getAverageReachEngagementRate();
-        double expectedOutput = ((50.0 + 100) / 5000) * 100;
-        assertEquals(expectedOutput, avgEngag, 0.1);
-    }
-
-
-    public void testGetAverageTraditionalEngagementRate() {
-        influencer.getMonthData().add(new InteractionData(100, 5, 1000, 50,
-            5000, "January"));
-        double avgEngag = influencer.getAverageReachEngagementRate();
-        double expectedOutput = ((50.0 + 100) / 5000) * 100;
-        assertEquals(expectedOutput, avgEngag, 0.1);
-    }
-
     // todo: implement a couple test methods
 }

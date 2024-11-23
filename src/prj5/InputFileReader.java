@@ -108,39 +108,38 @@ public class InputFileReader
 
 
     public String printAnalyticsFile()
-        throws FileNotFoundException
+        throws FileNotFoundException,
+        SocialMediaException
     {
         StringBuilder sb = new StringBuilder();
-        for(int i = 0; i < influencers.getLength(); i++)
+        for (int i = 0; i < influencers.getLength(); i++)
         {
             influencers.getEntry(i).setChannelSort(true);
         }
-        Object[] o = influencers.toArray();
-        o = (Influencer[]) o;
-        influencers.sort((Influencer[]) influencers.toArray(), 0, influencers.getLength() - 1);
+        // influencers.sort((Influencer[]) influencers.toArray(), 0,
+        // influencers.getLength() - 1);
         for (int i = 0; i < influencers.getLength(); i++)
         {
             String channel = influencers.getEntry(i).getChannelName();
             sb.append(
                 channel + "\ntraditional: " + influencers.getEntry(i)
-                    .getAverageTraditionalEngagementRate());
-            double d =
-                influencers.getEntry(i).getAverageTraditionalEngagementRate();
-            sb.append("\n__________\n__________\n");
+                    .firstQuarterTraditionalEngagementRate());
+            sb.append("\n==========\n");
         }
-        sb.append("**********\n\n**********");
+        sb.append("**********\n**********\n");
         for (int i = 0; i < influencers.getLength(); i++)
         {
             String channel = influencers.getEntry(i).getChannelName();
             sb.append(
-                channel + "\nreach: "
-                    + influencers.getEntry(i).getAverageReachEngagementRate());
-            double d =
-                influencers.getEntry(i).getAverageReachEngagementRate();
-            sb.append("\n__________\n__________\n");
+                channel + "\nreach: " + influencers.getEntry(i)
+                    .firstQuarterReachEngagementRate());
+            String s = influencers.getEntry(i)
+                .firstQuarterReachEngagementRate();
+            sb.append("\n==========\n");
         }
         return sb.toString();
     }
+
 
     private void isValidMonth(String month)
         throws SocialMediaException

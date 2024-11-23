@@ -8,6 +8,7 @@
 package prj5;
 
 import list.AList;
+import java.text.DecimalFormat;
 
 // -------------------------------------------------------------------------
 /**
@@ -39,8 +40,6 @@ public class Influencer
      *            the country at which the influencer is located
      * @param mainTopic
      *            the main topic this influencer posts about
-     * @param monthData
-     *            list of months of the influencer
      */
     public Influencer(
         String username,
@@ -54,8 +53,6 @@ public class Influencer
         this.country = country;
         this.mainTopic = mainTopic;
         monthData = new AList<InteractionData>();
-        isTraditional = true;
-        channelSort = true;
     }
 
 
@@ -146,29 +143,66 @@ public class Influencer
     }
 
 
-    public double getAverageTraditionalEngagementRate()
+    public String firstQuarterTraditionalEngagementRate() throws SocialMediaException
     {
-        double sum = 0;
+        DecimalFormat df = new DecimalFormat("#.#");
+        double sum = 0.0;
         for (int i = 0; i < monthData.getLength(); i++)
         {
-            String traditional =
-                monthData.getEntry(i).getTraditionalEngagementRate();
-            sum += Double.parseDouble(
-                traditional.substring(0, traditional.indexOf("%")));
+            if(!monthData.getEntry(i).getTraditionalEngagementRate().equals("N/A"))
+            {
+                sum += monthData.getEntry(i).getComments()
+                    + monthData.getEntry(i).getLikes();
+                if(monthData.getEntry(i).getMonth().equals("March"))
+                {
+                    sum /= monthData.getEntry(i).getFollowers();
+                    sum *= 100;
+                    return df.format(sum);
+                }
+            }
         }
-        return sum / monthData.getLength();
+        throw new SocialMediaException("Cannot find March data.");
     }
 
 
-    public double getAverageReachEngagementRate()
+    public String firstQuarterReachEngagementRate()
     {
-        double sum = 0;
+        DecimalFormat df = new DecimalFormat("#.#");
+        double sum = 0.0;
         for (int i = 0; i < monthData.getLength(); i++)
         {
-            String reach = monthData.getEntry(i).getReachEngagementRate();
-            sum += Double.parseDouble(reach.substring(0, reach.indexOf("%")));
+            if(!monthData.getEntry(i).getReachEngagementRate().equals("N/A"))
+            {
+                sum += (monthData.getEntry(i).getComments()
+                    + monthData.getEntry(i).getLikes()) / monthData.getEntry(i).getViews();
+                
+                System.out.println(monthData.getEntry(i).getComments());
+            }
         }
-        return sum / monthData.getLength();
+        sum *= 100;
+        return df.format(sum);
 
+    }
+
+
+    public boolean equals(Object obj)
+    {
+        if (this == obj)
+        {
+            return true;
+        }
+        if (obj == null)
+        {
+            return false;
+        }
+        if (this.getClass() == obj.getClass())
+        {
+            Influencer other = (Influencer)obj;
+            return this.username.equals(other.username)
+                && this.channelName.equals(other.channelName)
+                && this.country.equals(other.country)
+                && this.mainTopic.equals(other.mainTopic);
+        }
+        return false;
     }
 }

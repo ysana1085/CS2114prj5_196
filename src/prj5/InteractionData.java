@@ -153,10 +153,10 @@ public class InteractionData
 
             DecimalFormat df = new DecimalFormat("#.#");
 
-            return df.format(rate) + "%";
+            return df.format(rate);
         }
 
-        return "Invalid follower count";
+        return "N/A";
     }
 
 
@@ -174,9 +174,9 @@ public class InteractionData
 
             DecimalFormat df = new DecimalFormat("#.#");
 
-            return df.format(rate) + "%";
+            return df.format(rate);
         }
 
-        return "Invalid view count";
+        return "N/A";
     }
 }
