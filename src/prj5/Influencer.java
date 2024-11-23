@@ -143,17 +143,19 @@ public class Influencer
     }
 
 
-    public String firstQuarterTraditionalEngagementRate() throws SocialMediaException
+    public String firstQuarterTraditionalEngagementRate()
+        throws SocialMediaException
     {
         DecimalFormat df = new DecimalFormat("#.#");
         double sum = 0.0;
         for (int i = 0; i < monthData.getLength(); i++)
         {
-            if(!monthData.getEntry(i).getTraditionalEngagementRate().equals("N/A"))
+            if (!monthData.getEntry(i).getTraditionalEngagementRate()
+                .equals("N/A"))
             {
                 sum += monthData.getEntry(i).getComments()
                     + monthData.getEntry(i).getLikes();
-                if(monthData.getEntry(i).getMonth().equals("March"))
+                if (monthData.getEntry(i).getMonth().equals("March"))
                 {
                     sum /= monthData.getEntry(i).getFollowers();
                     sum *= 100;
@@ -169,14 +171,21 @@ public class Influencer
     {
         DecimalFormat df = new DecimalFormat("#.#");
         double sum = 0.0;
+        double viewCount = 0.0;
         for (int i = 0; i < monthData.getLength(); i++)
         {
-            if(!monthData.getEntry(i).getReachEngagementRate().equals("N/A"))
+            if (!monthData.getEntry(i).getReachEngagementRate().equals("N/A"))
             {
-                sum += (monthData.getEntry(i).getComments()
-                    + monthData.getEntry(i).getLikes()) / monthData.getEntry(i).getViews();
-                
-                System.out.println(monthData.getEntry(i).getComments());
+                viewCount += monthData.getEntry(i).getViews();
+            }
+        }
+        for (int i = 0; i < monthData.getLength(); i++)
+        {
+            if (!monthData.getEntry(i).getReachEngagementRate().equals("N/A"))
+            {
+                sum += ((monthData.getEntry(i).getComments()
+                    + monthData.getEntry(i).getLikes() * 1.0)
+                    / viewCount);
             }
         }
         sum *= 100;

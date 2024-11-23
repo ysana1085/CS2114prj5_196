@@ -150,7 +150,6 @@ public class InteractionData
         if (followers > 0)
         {
             double rate = (((double)(comments + likes) / followers) * 100);
-
             DecimalFormat df = new DecimalFormat("#.#");
 
             return df.format(rate);
@@ -171,7 +170,6 @@ public class InteractionData
         if (views > 0)
         {
             double rate = (((double)(comments + likes) / views) * 100);
-
             DecimalFormat df = new DecimalFormat("#.#");
 
             return df.format(rate);
