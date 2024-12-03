@@ -8,7 +8,6 @@
 package prj5;
 
 import java.util.Comparator;
-import list.AList;
 
 // -------------------------------------------------------------------------
 /**
