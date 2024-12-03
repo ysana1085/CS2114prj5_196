@@ -31,7 +31,7 @@ public class GUIAnalyticsWindow {
     private Button sortByChannel;
     private Button sortByEngagement;
     private static final int RECT_WIDTH = ?;
-    private static final int BASE_WIDTH = ?;
+    private static final int BASE_HEIGHT = ?;
 
     /**
      * Constructor for the GUIAnalyticsWindow class
