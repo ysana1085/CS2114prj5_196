@@ -12,7 +12,11 @@ import java.text.DecimalFormat;
 
 // -------------------------------------------------------------------------
 /**
- * @author
+ * Represents a social media influencer, which has a username, channel name,
+ * country, and main topic of posting. Additionally, the first quarter
+ * engagement rate data is contained in a list ADT.
+ * 
+ * @author bradl
  * @version Nov 21, 2024
  */
 public class Influencer

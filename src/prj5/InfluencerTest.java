@@ -31,6 +31,9 @@ public class InfluencerTest
     private Object obj;
 
     // ~ Constructors ..........................................................
+    /**
+     * Initializes six Influencer objects. Initializes one Object object.
+     */
     public void setUp()
     {
         influencer1 = new Influencer("ab", "cd", "ef", "gh");
