@@ -25,6 +25,10 @@ public class CompareByTraditionalTest
     private Influencer right;
 
     // ~ Constructors ..........................................................
+    /**
+     * Instantiates a new CompareByTraditional object. Instantiates two new
+     * Influencer objects.
+     */
     public void setUp()
     {
         comp = new CompareByTraditional();

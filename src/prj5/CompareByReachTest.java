@@ -25,6 +25,9 @@ public class CompareByReachTest
     private Influencer right;
 
     // ~ Constructors ..........................................................
+    /**
+     * Instiantiates a CompareByReach object, and two Influencer objects.
+     */
     public void setUp()
     {
         comp = new CompareByReach();
@@ -76,66 +79,5 @@ public class CompareByReachTest
                 "February"));
         assertEquals(comp.compare(left, right), 1);
         assertEquals(comp.compare(right, left), -1);
-    }
-
-
-    // ----------------------------------------------------------
-    /**
-     * Tests compareByMonth with InteractionData lists of varying size and
-     * elements.
-     */
-    public void testCompareByMonth()
-    {
-        assertEquals(
-            comp.compareByMonth(
-                new InteractionData(
-                    22876452,
-                    333,
-                    4650272,
-                    518,
-                    170095,
-                    "January"),
-                new InteractionData(
-                    22876452,
-                    333,
-                    4650272,
-                    518,
-                    170095,
-                    "February")),
-            0);
-        assertEquals(
-            comp.compareByMonth(
-                new InteractionData(
-                    3000000,
-                    333,
-                    37567549,
-                    518,
-                    170095,
-                    "February"),
-                new InteractionData(
-                    2000000,
-                    333,
-                    23458956,
-                    518,
-                    170095,
-                    "February")),
-            1);
-        assertEquals(
-            comp.compareByMonth(
-                new InteractionData(
-                    2000000,
-                    333,
-                    23458956,
-                    518,
-                    170095,
-                    "February"),
-                new InteractionData(
-                    3000000,
-                    333,
-                    37567549,
-                    518,
-                    170095,
-                    "February")),
-            -1);
     }
 }

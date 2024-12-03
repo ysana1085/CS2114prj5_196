@@ -30,25 +30,9 @@ public class CompareByTraditional
     @Override
     public int compare(Influencer left, Influencer right)
     {
-        try
-        {
-            return Double.compare(
-                Double
-                    .parseDouble(right.firstQuarterTraditionalEngagementRate()),
-                Double
-                    .parseDouble(left.firstQuarterTraditionalEngagementRate()));
-        }
-        catch (NumberFormatException e)
-        {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-        catch (SocialMediaException e)
-        {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-        return 0;
+        return Double.compare(
+            Double.parseDouble(right.firstQuarterTraditionalEngagementRate()),
+            Double.parseDouble(left.firstQuarterTraditionalEngagementRate()));
     }
 
 

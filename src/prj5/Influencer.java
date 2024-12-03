@@ -117,11 +117,8 @@ public class Influencer
      * 
      * @return A string representation of the traditional engagement rate of the
      *             first quarter for a given influencer.
-     * @throws SocialMediaException
-     *             when no March month is found.
      */
     public String firstQuarterTraditionalEngagementRate()
-        throws SocialMediaException
     {
         DecimalFormat df = new DecimalFormat("#.#");
         double sum = 0.0;
@@ -143,7 +140,7 @@ public class Influencer
                 }
             }
         }
-        throw new SocialMediaException("Cannot find March data.");
+        return df.format(sum);
     }
 
 
@@ -167,12 +164,16 @@ public class Influencer
                 viewCount += monthData.getEntry(i).getViews();
             }
         }
-        for (int i = 0; i < monthData.getLength(); i++)
+        if (viewCount > 0)
         {
-            if (!monthData.getEntry(i).getReachEngagementRate().equals("N/A"))
+            for (int i = 0; i < monthData.getLength(); i++)
             {
-                sum += ((monthData.getEntry(i).getComments()
-                    + monthData.getEntry(i).getLikes() * 1.0) / viewCount);
+                if (!monthData.getEntry(i).getReachEngagementRate()
+                    .equals("N/A"))
+                {
+                    sum += ((monthData.getEntry(i).getComments()
+                        + monthData.getEntry(i).getLikes() * 1.0) / viewCount);
+                }
             }
         }
         sum *= 100;
