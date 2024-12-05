@@ -175,12 +175,7 @@ public class GUIAnalyticsWindow
      */
     public void clickedSortByChannelName(Button button)
     {
-<<<<<<< HEAD
         sortText.setText("Sorting by Channel Name");
-=======
-        TextShape channelText =
-            addTextShape(300, 500, "Sorting by Channel Name");
->>>>>>> fb08c874b70065003d6b5572e2d6b7996264b428
     }
 
 
