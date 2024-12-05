@@ -3,7 +3,7 @@
 // As a Hokie, I will conduct myself with honor and integrity at all times.
 // I will not lie, cheat, or steal, nor will I accept the actions of those who
 // do.
-// -- Bradley Roos (bradleyroos@vt.edu)
+// -- Bradley Roos (bradleyroos@vt.edu), Liam O' Donnell (liamod42@vt.edu)
 
 package prj5;
 
@@ -13,6 +13,7 @@ import cs2.TextShape;
 import cs2.Window;
 import cs2.WindowSide;
 import java.awt.Color;
+import list.AList;
 
 // -------------------------------------------------------------------------
 /**
@@ -31,16 +32,18 @@ public class GUIAnalyticsWindow
     private Button febButton;
     private Button marchButton;
     private Button firstQuarterButton;
-    private Shape[] influencerShapes;
     private Button quitButton;
     private Button sortByChannel;
-    private Button sortByEngagement;
-    private Button traditionalEngagement;
-    private Button reachEngagement;
+    private Button sortByEngagementButton;
+    private Button traditionalEngagementButton;
+    private Button reachEngagementButton;
 
     private TextShape sortText;
     private TextShape engagementText;
     private TextShape timePeriod;
+
+    private AList<Shape> influencerShapes;
+    private DLinkedList<Influencer> influencers;
 
     private static final int RECT_WIDTH = 50;
 
@@ -52,10 +55,15 @@ public class GUIAnalyticsWindow
 
     private static final int WINDOW_WIDTH = 1000;
 
+    // ----------------------------------------------------------
     /**
-     * Constructor for the GUIAnalyticsWindow class
+     * Create a new GUIAnalyticsWindow object.
+     * 
+     * @param influencers
+     *            a doubly linked list of social media influencers provided from
+     *            the runner class
      */
-    public GUIAnalyticsWindow()
+    public GUIAnalyticsWindow(DLinkedList<Influencer> influencers)
     {
         window = new Window("Social Media Vis");
         window.setSize(WINDOW_WIDTH, WINDOW_HEIGHT);
@@ -84,29 +92,31 @@ public class GUIAnalyticsWindow
         window.addButton(sortByChannel, WindowSide.NORTH);
         sortByChannel.onClick(this, "clickedSortByChannelName");
 
-        sortByEngagement = new Button("Sort by Engagement Rate");
-        window.addButton(sortByEngagement, WindowSide.NORTH);
-        sortByEngagement.onClick(this, "clickedSortByEngagementRate");
+        sortByEngagementButton = new Button("Sort by Engagement Rate");
+        window.addButton(sortByEngagementButton, WindowSide.NORTH);
+        sortByEngagementButton.onClick(this, "clickedSortByEngagementRate");
 
-        traditionalEngagement = new Button("Traditional Engagement Rate");
-        window.addButton(traditionalEngagement, WindowSide.WEST);
-        traditionalEngagement.onClick(this, "clickedTraditional");
+        traditionalEngagementButton = new Button("Traditional Engagement Rate");
+        window.addButton(traditionalEngagementButton, WindowSide.WEST);
+        traditionalEngagementButton.onClick(this, "clickedTraditional");
 
-        reachEngagement = new Button("Reach Engagement Rate");
-        window.addButton(reachEngagement, WindowSide.WEST);
-        reachEngagement.onClick(this, "clickedReach");
+        reachEngagementButton = new Button("Reach Engagement Rate");
+        window.addButton(reachEngagementButton, WindowSide.WEST);
+        reachEngagementButton.onClick(this, "clickedReach");
 
         sortText = addTextShape(5, 50, "");
         engagementText = addTextShape(5, 30, "");
         timePeriod = addTextShape(5, 10, "");
+
+        this.influencers = influencers;
     }
 
 
     /**
-     * Closes down the window when the quit button is clicked
+     * Closes out of the window when the quit button is clicked
      * 
      * @param button
-     *            is the passed in button
+     *            the Quit button used to activate this button when clicked
      */
     public void clickedQuit(Button button)
     {
@@ -115,11 +125,10 @@ public class GUIAnalyticsWindow
 
 
     /**
-     * Shows the data displayed for Janurary
+     * Displays the engagement rates of each influencer for the January month
      * 
      * @param button
-     *            is the button we want to complete the action of showing
-     *            Janurary's data
+     *            the January button used to activate this method when clicked
      */
     public void clickedJanButton(Button button)
     {
@@ -128,11 +137,10 @@ public class GUIAnalyticsWindow
 
 
     /**
-     * Shows the data displayed for February
+     * Displays the engagement rates of each influencer for the February month
      * 
      * @param button
-     *            is the button we want to complete the action of showing
-     *            February's data
+     *            the February button used to activate this method when clicked
      */
     public void clickedFebButton(Button button)
     {
@@ -141,11 +149,10 @@ public class GUIAnalyticsWindow
 
 
     /**
-     * Shows the data displayed for March
+     * Displays the engagement rates of each influencer for the March month
      * 
      * @param button
-     *            is the button we want to complete the action of showing
-     *            March's data
+     *            the March button used to activate this method when clicked
      */
     public void clickedMarchButton(Button button)
     {
@@ -154,11 +161,12 @@ public class GUIAnalyticsWindow
 
 
     /**
-     * Displays the first quarters data
+     * Displays the engagement rates of each influencer for the first quarter
+     * (Jan - March)
      * 
      * @param button
-     *            is the button we want to complete the action of displaying the
-     *            first quarters data
+     *            the First Quarter button used to activate this method when
+     *            clicked
      */
     public void clickedFirstQuarterButton(Button button)
     {
@@ -167,11 +175,11 @@ public class GUIAnalyticsWindow
 
 
     /**
-     * Sorts the items by channel name when targetted button is clicked
+     * Sorts the social media influencers in ascending order by channel name
      * 
      * @param button
-     *            is the button we want to complete the action of sorting the
-     *            items by channel name
+     *            the Sort by Channel Name button used to activate this method
+     *            when clicked
      */
     public void clickedSortByChannelName(Button button)
     {
@@ -180,11 +188,11 @@ public class GUIAnalyticsWindow
 
 
     /**
-     * Sorts the items but engagement rate when targeted button is clicked
+     * Sorts the social media influencers by engagement rate in descending order
      * 
      * @param button
-     *            is the button we want to complete the action of sorting the
-     *            items by engagement rate
+     *            the Sort by Engagement Rate button used to activate this
+     *            method when clicked
      */
     public void clickedSortByEngagementRate(Button button)
     {
@@ -198,7 +206,8 @@ public class GUIAnalyticsWindow
      * calculated traditional engagement rate of a social media influencer.
      * 
      * @param button
-     *            the Traditional Engagement Rate button to activate this method
+     *            the Traditional Engagement Rate button used to activate this
+     *            method when clicked
      */
     public void clickedTraditional(Button button)
     {
@@ -212,7 +221,8 @@ public class GUIAnalyticsWindow
      * calculated reach engagement rate of a social media influencer.
      * 
      * @param button
-     *            the Reach Engagement Rate button to activate this method
+     *            the Reach Engagement Rate button used to activate this method
+     *            when clicked
      */
     public void clickedReach(Button button)
     {
@@ -243,7 +253,7 @@ public class GUIAnalyticsWindow
 
 
     /**
-     * Ends the graphic display
+     * Ends the graphic display by removing all shapes and displaying a message
      */
     public void endGraphics()
     {

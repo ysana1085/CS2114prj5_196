@@ -23,11 +23,11 @@ public class ProjectRunner
      * @param args
      *            the provided array of runtime arguments
      * @throws IOException
-     * @throws SocialMediaException
      * @throws ParseException
      * @throws FileNotFoundException
      */
     // ~Public Methods ........................................................
+    @SuppressWarnings("unused")
     public static void main(String[] args)
         throws IOException,
         ParseException
@@ -58,7 +58,7 @@ public class ProjectRunner
              * TODO: For final Submission - Should have the GUI display for the
              * input data
              */
-            GUIAnalyticsWindow window = new GUIAnalyticsWindow();
+            GUIAnalyticsWindow window = new GUIAnalyticsWindow(filer.getInfluencers());
         }
     }
 }

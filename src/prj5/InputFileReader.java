@@ -19,6 +19,7 @@ import cs1705.IOHelper;
  * 
  */
 
+@SuppressWarnings("deprecation")
 public class InputFileReader
 {
 
@@ -28,6 +29,17 @@ public class InputFileReader
             "August", "September", "October", "November", "December" };
     private DLinkedList<Influencer> influencers;
 
+    // ----------------------------------------------------------
+    /**
+     * Create a new InputFileReader object.
+     * 
+     * @param arg
+     *            the file name to read
+     * @throws FileNotFoundException
+     *             when the file name is not found in the project path
+     * @throws ParseException
+     *             when the analytics file is missing entries for a user
+     */
     public InputFileReader(String arg)
         throws FileNotFoundException,
         ParseException
@@ -52,7 +64,6 @@ public class InputFileReader
     // ----------------------------------------------------------
 
 
-    @SuppressWarnings({ "deprecation", "resource" })
     private void readAnalyticsFile(String file)
         throws ParseException,
         FileNotFoundException
@@ -65,6 +76,14 @@ public class InputFileReader
 
             String line = inStream.nextLine().replaceAll(" ", "");
             String[] values = line.split(",");
+            if (values.length < VALUES)
+            {
+                throw new ParseException(
+                    "Missing" + (VALUES - values.length) + "value(s)",
+                    line.indexOf(
+                        values[values.length - 1]
+                            + values[values.length - 1].length()));
+            }
             String month = values[0];
             String username = values[1];
             String channel = values[2];
@@ -107,16 +126,22 @@ public class InputFileReader
     }
 
 
+    // ----------------------------------------------------------
+    /**
+     * Gets a String
+     * 
+     * @return a String representation of traditional and reach engagement rates
+     *             for each user.
+     */
     public String printAnalyticsFile()
-        throws FileNotFoundException,
-        ParseException
     {
         StringBuilder sb = new StringBuilder();
         Influencer[] arr = influencers.toArray();
         influencers.sort(arr, 0, arr.length - 1, new CompareByName());
+        String channel;
         for (int i = 0; i < arr.length; i++)
         {
-            String channel = arr[i].getChannelName();
+            channel = arr[i].getChannelName();
             sb.append(
                 channel + "\ntraditional: "
                     + arr[i].firstQuarterTraditionalEngagementRate());
@@ -126,7 +151,7 @@ public class InputFileReader
         influencers.sort(arr, 0, arr.length - 1, new CompareByReach());
         for (int i = 0; i < influencers.getLength(); i++)
         {
-            String channel = arr[i].getChannelName();
+            channel = arr[i].getChannelName();
             sb.append(
                 channel + "\nreach: "
                     + arr[i].firstQuarterReachEngagementRate());
@@ -150,6 +175,12 @@ public class InputFileReader
     }
 
 
+    // ----------------------------------------------------------
+    /**
+     * Gets the doubly linked list of social media influencers
+     * 
+     * @return this doubly linked list of social media influencers
+     */
     public DLinkedList<Influencer> getInfluencers()
     {
         return influencers;
