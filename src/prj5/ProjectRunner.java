@@ -30,8 +30,7 @@ public class ProjectRunner
     // ~Public Methods ........................................................
     public static void main(String[] args)
         throws IOException,
-        ParseException,
-        SocialMediaException
+        ParseException
     {
         InputFileReader filer;
         boolean showGUI = true;
