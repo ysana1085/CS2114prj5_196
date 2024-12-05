@@ -198,7 +198,7 @@ public class DLinkedListTest
         {
             list.removePosition(5);
         }
-        catch(IndexOutOfBoundsException e)
+        catch (IndexOutOfBoundsException e)
         {
             exception = e;
         }
@@ -273,13 +273,14 @@ public class DLinkedListTest
             assertTrue(arr[i].equals(result[i]));
         }
     }
-    
+
+
     // ----------------------------------------------------------
     /**
      * tests getNode
      */
     public void testGetNode()
     {
-        //todo setup testGetNode
+        // todo setup testGetNode
     }
 }

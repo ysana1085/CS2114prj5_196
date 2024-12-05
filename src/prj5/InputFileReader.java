@@ -54,6 +54,7 @@ public class InputFileReader
     // ----------------------------------------------------------
     /**
      * Place a description of your method here.
+     * 
      * @param file
      * @return
      * @throws ParseException
@@ -119,7 +120,8 @@ public class InputFileReader
 
     public String printAnalyticsFile()
         throws FileNotFoundException,
-        SocialMediaException, ParseException
+        SocialMediaException,
+        ParseException
     {
         StringBuilder sb = new StringBuilder();
         Influencer[] arr = influencers.toArray();
@@ -148,7 +150,8 @@ public class InputFileReader
 
 
     private void isValidMonth(String month)
-        throws SocialMediaException, ParseException
+        throws SocialMediaException,
+        ParseException
     {
         for (String s : MONTHS)
         {

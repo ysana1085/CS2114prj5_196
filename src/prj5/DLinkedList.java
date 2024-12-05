@@ -9,7 +9,6 @@
 package prj5;
 
 import java.util.Comparator;
-import java.lang.reflect.Array;
 
 /**
  * The DLinkedList class represents a doubly linked list which contains sentinal
@@ -281,6 +280,8 @@ public class DLinkedList<T>
      *            The first element in the array
      * @param last
      *            The last element in the array
+     * @param comp
+     *            The Comparator Object
      */
     public void sort(T[] array, int first, int last, Comparator<T> comp)
     {

@@ -171,7 +171,8 @@ public class GUIAnalyticsWindow
      */
     public void clickedSortByChannelName(Button button)
     {
-        TextShape channelText = addTextShape(300, 500, "Sorting by Channel Name");
+        TextShape channelText =
+            addTextShape(300, 500, "Sorting by Channel Name");
     }
 
 
