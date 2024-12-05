@@ -22,14 +22,16 @@ public class ProjectRunner
      * 
      * @param args
      *            the provided array of runtime arguments
-     * @throws IOException 
+     * @throws IOException
      * @throws SocialMediaException
      * @throws ParseException
      * @throws FileNotFoundException
      */
     // ~Public Methods ........................................................
     public static void main(String[] args)
-        throws IOException, ParseException, SocialMediaException
+        throws IOException,
+        ParseException,
+        SocialMediaException
     {
         InputFileReader filer;
         boolean showGUI = true;

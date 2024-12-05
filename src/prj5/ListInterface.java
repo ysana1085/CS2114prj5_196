@@ -17,7 +17,8 @@ package prj5;
  * @param <T>
  *            The generic object type, T.
  */
-public interface ListInterface<T> {
+public interface ListInterface<T>
+{
     /**
      * Adds the object to the end of the list.
      *

@@ -111,7 +111,8 @@ public class InputFileReader
 
     public String printAnalyticsFile()
         throws FileNotFoundException,
-        SocialMediaException, ParseException
+        SocialMediaException,
+        ParseException
     {
         StringBuilder sb = new StringBuilder();
         Influencer[] arr = influencers.toArray();
@@ -139,7 +140,8 @@ public class InputFileReader
 
 
     private boolean isValidMonth(String month)
-        throws SocialMediaException, ParseException
+        throws SocialMediaException,
+        ParseException
     {
         for (String s : MONTHS)
         {
