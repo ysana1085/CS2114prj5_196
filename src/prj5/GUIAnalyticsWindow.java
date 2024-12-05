@@ -12,10 +12,7 @@ import cs2.Shape;
 import cs2.TextShape;
 import cs2.Window;
 import cs2.WindowSide;
-
-import java.awt.*;
-import java.util.Observable;
-import java.util.Observer;
+import java.awt.Color;
 
 // -------------------------------------------------------------------------
 /**
@@ -26,7 +23,7 @@ import java.util.Observer;
  * @author bradl
  * @version Dec 2, 2024
  */
-@SuppressWarnings("deprecation")
+
 public class GUIAnalyticsWindow
 {
     private Window window;
@@ -40,6 +37,10 @@ public class GUIAnalyticsWindow
     private Button sortByEngagement;
     private Button traditionalEngagement;
     private Button reachEngagement;
+
+    private TextShape sortText;
+    private TextShape engagementText;
+    private TextShape timePeriod;
 
     private static final int RECT_WIDTH = 50;
 
@@ -56,7 +57,6 @@ public class GUIAnalyticsWindow
      */
     public GUIAnalyticsWindow()
     {
-        // print font type
         window = new Window("Social Media Vis");
         window.setSize(WINDOW_WIDTH, WINDOW_HEIGHT);
 
@@ -90,11 +90,15 @@ public class GUIAnalyticsWindow
 
         traditionalEngagement = new Button("Traditional Engagement Rate");
         window.addButton(traditionalEngagement, WindowSide.WEST);
-        traditionalEngagement.onClick(this, "clickedSortByTraditional");
+        traditionalEngagement.onClick(this, "clickedTraditional");
 
         reachEngagement = new Button("Reach Engagement Rate");
         window.addButton(reachEngagement, WindowSide.WEST);
-        reachEngagement.onClick(this, "clickedSortByReach");
+        reachEngagement.onClick(this, "clickedReach");
+
+        sortText = addTextShape(5, 50, "");
+        engagementText = addTextShape(5, 30, "");
+        timePeriod = addTextShape(5, 10, "");
     }
 
 
@@ -119,7 +123,7 @@ public class GUIAnalyticsWindow
      */
     public void clickedJanButton(Button button)
     {
-        // Code
+        timePeriod.setText("Showing January");
     }
 
 
@@ -132,7 +136,7 @@ public class GUIAnalyticsWindow
      */
     public void clickedFebButton(Button button)
     {
-        // Code
+        timePeriod.setText("Showing February");
     }
 
 
@@ -145,7 +149,7 @@ public class GUIAnalyticsWindow
      */
     public void clickedMarchButton(Button button)
     {
-        // Code
+        timePeriod.setText("Showing March");
     }
 
 
@@ -158,7 +162,7 @@ public class GUIAnalyticsWindow
      */
     public void clickedFirstQuarterButton(Button button)
     {
-        // Code
+        timePeriod.setText("Showing First Quarter (Jan-March)");
     }
 
 
@@ -171,7 +175,7 @@ public class GUIAnalyticsWindow
      */
     public void clickedSortByChannelName(Button button)
     {
-        TextShape channelText = addTextShape(300, 500, "Sorting by Channel Name");
+        sortText.setText("Sorting by Channel Name");
     }
 
 
@@ -184,19 +188,35 @@ public class GUIAnalyticsWindow
      */
     public void clickedSortByEngagementRate(Button button)
     {
-        // Code
+        sortText.setText("Sorting by Engagement Rate");
     }
 
 
-    public void clickedSortByTraditional(Button button)
+    // ----------------------------------------------------------
+    /**
+     * Creates rectangles for the bar chart, with the height representing
+     * calculated traditional engagement rate of a social media influencer.
+     * 
+     * @param button
+     *            the Traditional Engagement Rate button to activate this method
+     */
+    public void clickedTraditional(Button button)
     {
-
+        engagementText.setText("Traditional Engagement Rate");
     }
 
 
-    public void clickedSortByReach(Button button)
+    // ----------------------------------------------------------
+    /**
+     * Creates rectangles for the bar chart, with the height representing
+     * calculated reach engagement rate of a social media influencer.
+     * 
+     * @param button
+     *            the Reach Engagement Rate button to activate this method
+     */
+    public void clickedReach(Button button)
     {
-
+        engagementText.setText("Reach Engagement Rate");
     }
 
 
@@ -218,7 +238,7 @@ public class GUIAnalyticsWindow
      */
     public void update()
     {
-        // Code
+        // check in for office hours about this
     }
 
 

@@ -25,7 +25,7 @@ public class InputFileReader
     public static final int VALUES = 10;
     public static final String[] MONTHS =
         { "January", "February", "March", "April", "May", "June", "July",
-            "August", "September", "October", "November", "December" };
+            "August", "September", "October", "November", "December" }; 
     private DLinkedList<Influencer> influencers;
 
     public InputFileReader(String arg)
@@ -52,16 +52,9 @@ public class InputFileReader
 
 
     // ----------------------------------------------------------
-    /**
-     * Place a description of your method here.
-     * @param file
-     * @return
-     * @throws ParseException
-     * @throws FileNotFoundException
-     * @throws SocialMediaException
-     */
+
     @SuppressWarnings({ "deprecation", "resource" })
-    public DLinkedList<Influencer> readAnalyticsFile(String file)
+    private void readAnalyticsFile(String file)
         throws ParseException,
         FileNotFoundException,
         SocialMediaException
@@ -113,7 +106,6 @@ public class InputFileReader
             }
         } // end while
         inStream.close();
-        return influencers;
     }
 
 
@@ -140,23 +132,27 @@ public class InputFileReader
             sb.append(
                 channel + "\nreach: "
                     + arr[i].firstQuarterReachEngagementRate());
-            String s = arr[i].firstQuarterReachEngagementRate();
             sb.append("\n==========\n");
         }
         return sb.toString();
     }
 
 
-    private void isValidMonth(String month)
+    private boolean isValidMonth(String month)
         throws SocialMediaException, ParseException
     {
         for (String s : MONTHS)
         {
             if (s.equals(month))
             {
-                return;
+                return true;
             }
         }
         throw new SocialMediaException("invalid month");
+    }
+    
+    public DLinkedList<Influencer> getInfluencers()
+    {
+        return influencers;
     }
 }
