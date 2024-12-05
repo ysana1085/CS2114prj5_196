@@ -32,8 +32,8 @@ public class ProjectRunner
         throws IOException, ParseException, SocialMediaException
     {
         InputFileReader filer;
-        boolean showGUI = false;
-        boolean showConsole = true;
+        boolean showGUI = true;
+        boolean showConsole = false;
         if (args.length > 0)
         {
             filer = new InputFileReader(args[0]);
@@ -57,7 +57,7 @@ public class ProjectRunner
              * TODO: For final Submission - Should have the GUI display for the
              * input data
              */
-            return;
+            GUIAnalyticsWindow window = new GUIAnalyticsWindow();
         }
     }
 }

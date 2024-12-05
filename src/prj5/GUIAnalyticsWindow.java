@@ -8,8 +8,14 @@
 package prj5;
 
 import cs2.Button;
-import cs2.Window;
 import cs2.Shape;
+import cs2.TextShape;
+import cs2.Window;
+import cs2.WindowSide;
+
+import java.awt.*;
+import java.util.Observable;
+import java.util.Observer;
 
 // -------------------------------------------------------------------------
 /**
@@ -20,24 +26,75 @@ import cs2.Shape;
  * @author bradl
  * @version Dec 2, 2024
  */
-public class GUIAnalyticsWindow {
+@SuppressWarnings("deprecation")
+public class GUIAnalyticsWindow
+{
     private Window window;
     private Button janButton;
     private Button febButton;
     private Button marchButton;
-    private Button firstQuartButton;
+    private Button firstQuarterButton;
     private Shape[] influencerShapes;
     private Button quitButton;
     private Button sortByChannel;
     private Button sortByEngagement;
-    private static final int RECT_WIDTH = ?;
-    private static final int BASE_HEIGHT = ?;
+    private Button traditionalEngagement;
+    private Button reachEngagement;
+
+    private static final int RECT_WIDTH = 50;
+
+    private static final int HEIGHT_FACTOR_TRAD = 10;
+
+    private static final int HEIGHT_FACTOR_REACH = 10;
+
+    private static final int WINDOW_HEIGHT = 600;
+
+    private static final int WINDOW_WIDTH = 1000;
 
     /**
      * Constructor for the GUIAnalyticsWindow class
      */
-    public GUIAnalyticsWindow() {
+    public GUIAnalyticsWindow()
+    {
+        // print font type
+        window = new Window("Social Media Vis");
+        window.setSize(WINDOW_WIDTH, WINDOW_HEIGHT);
 
+        janButton = new Button("January");
+        window.addButton(janButton, WindowSide.SOUTH);
+        janButton.onClick(this, "clickedJanButton");
+
+        febButton = new Button("February");
+        window.addButton(febButton, WindowSide.SOUTH);
+        febButton.onClick(this, "clickedFebButton");
+
+        marchButton = new Button("March");
+        window.addButton(marchButton, WindowSide.SOUTH);
+        marchButton.onClick(this, "clickedMarchButton");
+
+        firstQuarterButton = new Button("First Quarter(Jan - March)");
+        window.addButton(firstQuarterButton, WindowSide.SOUTH);
+        firstQuarterButton.onClick(this, "clickedFirstQuarterButton");
+
+        quitButton = new Button("Quit");
+        window.addButton(quitButton, WindowSide.NORTH);
+        quitButton.onClick(this, "clickedQuit");
+
+        sortByChannel = new Button("Sort by Channel Name");
+        window.addButton(sortByChannel, WindowSide.NORTH);
+        sortByChannel.onClick(this, "clickedSortByChannelName");
+
+        sortByEngagement = new Button("Sort by Engagement Rate");
+        window.addButton(sortByEngagement, WindowSide.NORTH);
+        sortByEngagement.onClick(this, "clickedSortByEngagementRate");
+
+        traditionalEngagement = new Button("Traditional Engagement Rate");
+        window.addButton(traditionalEngagement, WindowSide.WEST);
+        traditionalEngagement.onClick(this, "clickedSortByTraditional");
+
+        reachEngagement = new Button("Reach Engagement Rate");
+        window.addButton(reachEngagement, WindowSide.WEST);
+        reachEngagement.onClick(this, "clickedSortByReach");
     }
 
 
@@ -47,32 +104,9 @@ public class GUIAnalyticsWindow {
      * @param button
      *            is the passed in button
      */
-    public void clickedQuit(Button button) {
+    public void clickedQuit(Button button)
+    {
         System.exit(0);
-    }
-
-
-    /**
-     * Sorts the items by channel name when targetted button is clicked
-     * 
-     * @param button
-     *            is the button we want to complete the action of sorting the
-     *            items by channel name
-     */
-    public void clickedSortByChannelName(Button button) {
-        // Code
-    }
-
-
-    /**
-     * Sorts the items but engagement rate when targeted button is clicked
-     * 
-     * @param button
-     *            is the button we want to complete the action of sorting the
-     *            items by engagement rate
-     */
-    public void clickedSortByEngagementRate(Button button) {
-        // Code
     }
 
 
@@ -83,7 +117,8 @@ public class GUIAnalyticsWindow {
      *            is the button we want to complete the action of showing
      *            Janurary's data
      */
-    public void clickedJanuaryButton(Button button) {
+    public void clickedJanButton(Button button)
+    {
         // Code
     }
 
@@ -95,7 +130,8 @@ public class GUIAnalyticsWindow {
      *            is the button we want to complete the action of showing
      *            February's data
      */
-    public void clickedFebruaryButton(Button button) {
+    public void clickedFebButton(Button button)
+    {
         // Code
     }
 
@@ -107,7 +143,8 @@ public class GUIAnalyticsWindow {
      *            is the button we want to complete the action of showing
      *            March's data
      */
-    public void clickedMarchButton(Button button) {
+    public void clickedMarchButton(Button button)
+    {
         // Code
     }
 
@@ -119,27 +156,68 @@ public class GUIAnalyticsWindow {
      *            is the button we want to complete the action of displaying the
      *            first quarters data
      */
-    public void clickedFirstQuarter(Button button) {
+    public void clickedFirstQuarterButton(Button button)
+    {
         // Code
     }
 
 
     /**
-     * Adds a new text shape to the window
+     * Sorts the items by channel name when targetted button is clicked
      * 
-     * @param textShape The textShape we want to add to the window
-     * @param x The location of where we want the textShape on the x axis
-     * @param y The location of where we want the textShape on the y axis
+     * @param button
+     *            is the button we want to complete the action of sorting the
+     *            items by channel name
      */
-    public void addTextShape(String textShape, int x, int y) {
+    public void clickedSortByChannelName(Button button)
+    {
+        TextShape channelText = addTextShape(300, 500, "Sorting by Channel Name");
+    }
+
+
+    /**
+     * Sorts the items but engagement rate when targeted button is clicked
+     * 
+     * @param button
+     *            is the button we want to complete the action of sorting the
+     *            items by engagement rate
+     */
+    public void clickedSortByEngagementRate(Button button)
+    {
         // Code
+    }
+
+
+    public void clickedSortByTraditional(Button button)
+    {
+
+    }
+
+
+    public void clickedSortByReach(Button button)
+    {
+
+    }
+
+
+    private TextShape addTextShape(int x, int y, String text)
+    {
+        if (text != null)
+        {
+            TextShape shape = new TextShape(x, y, text, Color.black);
+            shape.setBackgroundColor(Color.white);
+            window.addShape(shape);
+            return shape;
+        }
+        return null;
     }
 
 
     /**
      * Updates the window to match the users input
      */
-    public void update() {
+    public void update()
+    {
         // Code
     }
 
@@ -147,8 +225,10 @@ public class GUIAnalyticsWindow {
     /**
      * Ends the graphic display
      */
-    public void endGraphics() {
-        // Code
+    public void endGraphics()
+    {
+        window.removeAllShapes();
+        addTextShape(400, 400, "All users processed!");
     }
 
 }
