@@ -58,7 +58,8 @@ public class ProjectRunner
              * TODO: For final Submission - Should have the GUI display for the
              * input data
              */
-            GUIAnalyticsWindow window = new GUIAnalyticsWindow(filer.getInfluencers());
+            GUIAnalyticsWindow window =
+                new GUIAnalyticsWindow(filer.getInfluencers());
         }
     }
 }
