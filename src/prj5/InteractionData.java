@@ -37,11 +37,17 @@ public class InteractionData
      * influencer's account and calculate engagement rates.
      * 
      * @param likes
+     *            number of likes in a profile
      * @param posts
+     *            number of posts in a profile
      * @param followers
+     *            number of followers in a profile
      * @param comments
+     *            number of lifetime comments in a profile
      * @param views
+     *            number of lifetime views in a profile
      * @param month
+     *            the month of the year
      */
 
     public InteractionData(
@@ -177,5 +183,36 @@ public class InteractionData
         }
 
         return "N/A";
+    }
+
+
+    /**
+     * Equals method of the class to help compare lists to data
+     * 
+     * @param obj
+     *            object of comaprison
+     * @return boolean of
+     */
+
+    @Override
+    public boolean equals(Object obj)
+    {
+        if (this == obj)
+        {
+            return true;
+        }
+        if (obj == null)
+        {
+            return false;
+        }
+        if (this.getClass() == obj.getClass())
+        {
+            InteractionData other = (InteractionData)obj;
+            return this.likes == other.likes && this.posts == other.posts
+                && this.followers == other.followers
+                && this.comments == other.comments && this.views == other.views
+                && this.month.equals(other.month);
+        }
+        return false;
     }
 }

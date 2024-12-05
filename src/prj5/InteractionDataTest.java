@@ -1,4 +1,5 @@
 package prj5;
+
 import student.TestCase;
 
 // -------------------------------------------------------------------------
@@ -96,15 +97,15 @@ public class InteractionDataTest
      */
     public void testGetTraditionalEngagementRate()
     {
-        assertEquals("491.9%", influencer.getTraditionalEngagementRate());
+        assertEquals("491.9", influencer.getTraditionalEngagementRate());
 
         influencer = new InteractionData(100, 50, 0, 50, 100, "February");
         assertEquals(
-            "Invalid follower count",
+            "N/A",
             influencer.getTraditionalEngagementRate());
 
         influencer = new InteractionData(0, 50, 1000, 0, 100, "March");
-        assertEquals("0%", influencer.getTraditionalEngagementRate());
+        assertEquals("0", influencer.getTraditionalEngagementRate());
     }
 
 
@@ -113,13 +114,72 @@ public class InteractionDataTest
      */
     public void testGetReachEngagementRate()
     {
-        assertEquals("13449.5%", influencer.getReachEngagementRate());
+        assertEquals("13449.5", influencer.getReachEngagementRate());
 
         influencer = new InteractionData(100, 50, 1000, 50, 0, "February");
-        assertEquals("Invalid view count", influencer.getReachEngagementRate());
+        assertEquals("N/A", influencer.getReachEngagementRate());
 
         influencer = new InteractionData(0, 50, 1000, 0, 100, "March");
-        assertEquals("0%", influencer.getTraditionalEngagementRate());
+        assertEquals("0", influencer.getTraditionalEngagementRate());
+
+    }
+
+
+    /**
+     * tests equals() method of the InteractionData class
+     */
+    public void testEquals()
+    {
+        //primary obj
+        InteractionData influencer2 =
+            new InteractionData(10, 2, 5, 3, 20, "January");
+        
+        //duplicate obj of influener 2
+        InteractionData influencer3 =
+            new InteractionData(10, 2, 5, 3, 20, "January");
+        
+        //different likes
+        InteractionData influencer4 =
+            new InteractionData(9, 2, 5, 3, 20, "January");
+        
+        //different posts
+        InteractionData influencer5 =
+            new InteractionData(10, 1, 5, 3, 20, "January");
+        
+        //diferent followers
+        InteractionData influencer6 =
+            new InteractionData(10, 2, 4, 3, 20, "January");
+        
+        //different comments
+        InteractionData influencer7 =
+            new InteractionData(10, 2, 5, 2, 20, "January");
+        
+        //different views
+        InteractionData influencer8 =
+            new InteractionData(10, 2, 5, 3, 19, "January");
+        
+        //different month
+        InteractionData influencer9 =
+            new InteractionData(10, 2, 5, 3, 20, "February");
+        
+        //null Object
+        Object nullObj = new Object();
+        
+        //different type of Object
+        Object obj = new Object();
+        
+        // todo create test class
+        assertTrue(influencer2.equals(influencer2));
+        assertFalse(influencer2.equals(nullObj));
+        assertFalse(influencer2.equals(obj));
+        assertTrue(influencer2.equals(influencer3));
+        assertFalse(influencer2.equals(influencer4));
+        assertFalse(influencer2.equals(influencer5));
+        assertFalse(influencer2.equals(influencer6));
+        assertFalse(influencer2.equals(influencer7));
+        assertFalse(influencer2.equals(influencer8));
+        assertFalse(influencer2.equals(influencer9));
+        
 
     }
 }
