@@ -120,7 +120,7 @@ public class GUIAnalyticsWindow
         this.influencers = influencers;
         influencerShapes = new Shape[influencers.getLength()];
         influencerNames = new TextShape[influencers.getLength()];
-        SHAPE_COLORS[0] = new Color(256, 156, 68);
+        SHAPE_COLORS[0] = new Color(255, 156, 68);
         SHAPE_COLORS[1] = new Color(72, 188, 140);
         SHAPE_COLORS[2] = new Color(16, 84, 108);
         SHAPE_COLORS[3] = new Color(88, 132, 212);
@@ -189,6 +189,77 @@ public class GUIAnalyticsWindow
     public void clickedFirstQuarterButton(Button button)
     {
         timePeriod.setText("Showing First Quarter (Jan-March)");
+        if (influencerShapes[0] != null)
+        {
+            for (int i = 0; i < influencerShapes.length; i++)
+            {
+                window.removeShape(influencerShapes[i]);
+                window.removeShape(influencerNames[i]);
+            }
+        }
+        double max = 0;
+        for (int i = 0; i < influencers.getLength(); i++)
+        {
+            if (engagementText.getText().equals("Reach Engagement Rate"))
+            {
+                if (toDouble(
+                    influencers.getEntry(i)
+                        .firstQuarterReachEngagementRate()) > max)
+                {
+                    max = toDouble(
+                        influencers.getEntry(i)
+                            .firstQuarterReachEngagementRate());
+                }
+            }
+            else
+            {
+                if (toDouble(
+                    influencers.getEntry(i)
+                        .firstQuarterReachEngagementRate()) > max)
+                {
+                    max = toDouble(
+                        influencers.getEntry(i)
+                            .firstQuarterTraditionalEngagementRate());
+                }
+            }
+        }
+        double factor = max / BAR_MAX_HEIGHT;
+        if (engagementText.getText().equals("Reach Engagement Rate"))
+        {
+            influencers.insertionSort(new CompareByReach());
+        }
+        else
+        {
+            influencers.insertionSort(new CompareByTraditional());
+        }
+        for (int i = 0; i < influencers.getLength(); i++)
+        {
+            double engagementRate;
+            if (engagementText.getText().equals("Reach Engagement Rate"))
+            {
+                engagementRate = toDouble(
+                    influencers.getEntry(i).firstQuarterReachEngagementRate());
+            }
+            else
+            {
+                engagementRate = toDouble(
+                    influencers.getEntry(i)
+                        .firstQuarterTraditionalEngagementRate());
+            }
+            influencerShapes[i] = new Shape(
+                (i + 1) * BAR_SPACING,
+                (int)(engagementRate * factor),
+                RECT_WIDTH,
+                (BAR_BASE_HEIGHT - BAR_MAX_HEIGHT)
+                    + (int)(BAR_MAX_HEIGHT - (engagementRate * factor)) / 2,
+                SHAPE_COLORS[i]);
+            influencerNames[i] = addTextShape(
+                (i + 1) * 50,
+                NAME_HEIGHT,
+                influencers.getEntry(i).getChannelName() + "\n"
+                    + engagementRate);
+            window.addShape(influencerShapes[i]);
+        }
     }
 
 
@@ -276,19 +347,22 @@ public class GUIAnalyticsWindow
 
     private void updateShapes(int index)
     {
-        for(int i = 0; i < influencerShapes.length; i++)
+        if (influencerShapes[0] != null)
         {
-            window.removeShape(influencerShapes[i]);
-            window.removeShape(influencerNames[i]);
+            for (int i = 0; i < influencerShapes.length; i++)
+            {
+                window.removeShape(influencerShapes[i]);
+                window.removeShape(influencerNames[i]);
+            }
         }
         double factor = getHeightFactor(index);
         if (engagementText.getText().equals("Reach Engagement Rate"))
         {
-            influencers.sort(new CompareByMonth(false, index));
+            influencers.insertionSort(new CompareByMonth(false, index));
         }
         else
         {
-            influencers.sort(new CompareByMonth(true, index));
+            influencers.insertionSort(new CompareByMonth(true, index));
         }
         for (int i = 0; i < influencers.getLength(); i++)
         {
@@ -345,14 +419,5 @@ public class GUIAnalyticsWindow
             }
         }
         return max / BAR_MAX_HEIGHT;
-    }
-
-
-    /**
-     * Updates the window to match the users input
-     */
-    public void update()
-    {
-        // check in for office hours about this
     }
 }

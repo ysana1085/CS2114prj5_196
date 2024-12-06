@@ -280,8 +280,8 @@ public class DLinkedList<T>
     {
         if (getLength() > 1)
         {
-            Node<T> unsorted = head.next();
-            Node<T> sorted = head;
+            Node<T> unsorted = head.next().next();
+            Node<T> sorted = head.next();
             sorted.setNext(null);
 
             while (unsorted != tail)
@@ -304,8 +304,8 @@ public class DLinkedList<T>
     private void insertInOrder(Comparator<T> comp, Node<T> inserted)
     {
         T item = inserted.getData();
-        Node<T> curr = head.next().next();
-        Node<T> prev = head.next();
+        Node<T> curr = head.next();
+        Node<T> prev = head;
         while ((curr != tail) && (comp.compare(item, curr.getData()) > 0))
         {
             prev = curr;

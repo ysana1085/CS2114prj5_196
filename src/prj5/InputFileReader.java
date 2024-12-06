@@ -136,7 +136,7 @@ public class InputFileReader
     public String printAnalyticsFile()
     {
         StringBuilder sb = new StringBuilder();
-        influencers.sort(new CompareByName());
+        influencers.insertionSort(new CompareByName());
         String channel;
         for (int i = 0; i < influencers.getLength(); i++)
         {
@@ -147,7 +147,7 @@ public class InputFileReader
             sb.append("\n==========\n");
         }
         sb.append("**********\n**********\n");
-        influencers.sort(new CompareByReach());
+        influencers.insertionSort(new CompareByReach());
         for (int i = 0; i < influencers.getLength(); i++)
         {
             channel = influencers.getEntry(i).getChannelName();
