@@ -280,15 +280,15 @@ public class DLinkedList<T>
     {
         if (getLength() > 1)
         {
-            Node<T> unsorted = head.next().next();
-            Node<T> sorted = head.next();
-            sorted.setNext(null);
+            Node<T> unsorted = head.next();
 
             while (unsorted != tail)
             {
-                Node<T> insert = unsorted;
-                unsorted = unsorted.next();
-                insertInOrder(comparator, insert);
+                Node<T> nextSort = unsorted.next();
+                unsorted.previous().setNext(unsorted.next());
+                unsorted.next().setPrevious(unsorted.previous());
+                insertInOrder(comparator, unsorted);
+                unsorted = nextSort;
             }
         }
     }
