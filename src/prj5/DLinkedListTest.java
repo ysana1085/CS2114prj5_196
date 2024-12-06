@@ -171,7 +171,7 @@ public class DLinkedListTest
         Influencer[] result = { new Influencer("ab", "cd", "ef", "gh"),
             new Influencer("ab", "ef", "ef", "gh"),
             new Influencer("ab", "gh", "ef", "gh") };
-        Influencer[] arr = temp.toArray();
+        Object[] arr = temp.toArray();
         for (int i = 0; i < result.length; i++)
         {
             assertEquals(result[i], arr[i]);
@@ -262,7 +262,7 @@ public class DLinkedListTest
         temp.add(new Influencer("ab", "cd", "ef", "gh"));
         temp.add(new Influencer("ab", "gh", "ef", "gh"));
         temp.add(new Influencer("ab", "ef", "ef", "gh"));
-        Influencer[] arr = temp.toArray();
+        Object[] arr = temp.toArray();
         Influencer[] result = { new Influencer("ab", "cd", "ef", "gh"),
             new Influencer("ab", "ef", "ef", "gh"),
             new Influencer("ab", "gh", "ef", "gh") };
