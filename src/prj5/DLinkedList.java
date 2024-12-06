@@ -197,10 +197,9 @@ public class DLinkedList<T>
      *
      * @return an array representing the list
      */
-    @SuppressWarnings("unchecked")
-    public T[] toArray()
+    public Object[] toArray()
     {
-        T[] arr = (T[])new Influencer[size];
+        Object[] arr = new Object[size];
         Node<T> curr = head.next();
         for (int i = 0; i < arr.length; i++)
         {
