@@ -33,27 +33,4 @@ public class CompareByTraditional
             Double.parseDouble(right.firstQuarterTraditionalEngagementRate()),
             Double.parseDouble(left.firstQuarterTraditionalEngagementRate()));
     }
-
-
-    // ----------------------------------------------------------
-    /**
-     * Determines which set of monthly interaction data has a greater
-     * traditional engagement rate.
-     * 
-     * @param left
-     *            the first interaction data object
-     * @param right
-     *            the first interaction data object
-     * @return -1 if left engagement rate > right engagement rate, 0 if left
-     *             engagement rate = right engagement, 1 if right engagement
-     *             rate > left engagement rate
-     */
-    public int compareByMonth(InteractionData left, InteractionData right)
-    {
-        String leftRate = left.getTraditionalEngagementRate();
-        String rightRate = right.getTraditionalEngagementRate();
-        return Double.compare(
-            Double.parseDouble(leftRate),
-            Double.parseDouble(rightRate));
-    }
 }
