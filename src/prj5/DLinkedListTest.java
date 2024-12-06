@@ -262,15 +262,15 @@ public class DLinkedListTest
         temp.add(new Influencer("ab", "cd", "ef", "gh"));
         temp.add(new Influencer("ab", "gh", "ef", "gh"));
         temp.add(new Influencer("ab", "ef", "ef", "gh"));
+        temp.insertionSort(new CompareByName());
         Object[] arr = temp.toArray();
         Influencer[] result = { new Influencer("ab", "cd", "ef", "gh"),
             new Influencer("ab", "ef", "ef", "gh"),
             new Influencer("ab", "gh", "ef", "gh") };
-        temp.insertionSort(new CompareByName());
         // ensure months are sorted alphabetically
-        for (int i = 0; i < arr.length; i++)
+        for (int i = 0; i < result.length; i++)
         {
-            assertTrue(arr[i].equals(result[i]));
+            assertEquals(result[i], arr[i]);
         }
     }
 
