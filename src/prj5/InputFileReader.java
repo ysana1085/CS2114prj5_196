@@ -136,25 +136,24 @@ public class InputFileReader
     public String printAnalyticsFile()
     {
         StringBuilder sb = new StringBuilder();
-        Influencer[] arr = influencers.toArray();
-        influencers.sort(arr, 0, arr.length - 1, new CompareByName());
+        influencers.sort(new CompareByName());
         String channel;
-        for (int i = 0; i < arr.length; i++)
+        for (int i = 0; i < influencers.getLength(); i++)
         {
-            channel = arr[i].getChannelName();
+            channel = influencers.getEntry(i).getChannelName();
             sb.append(
                 channel + "\ntraditional: "
-                    + arr[i].firstQuarterTraditionalEngagementRate());
+                    + influencers.getEntry(i).firstQuarterTraditionalEngagementRate());
             sb.append("\n==========\n");
         }
         sb.append("**********\n**********\n");
-        influencers.sort(arr, 0, arr.length - 1, new CompareByReach());
+        influencers.sort(new CompareByReach());
         for (int i = 0; i < influencers.getLength(); i++)
         {
-            channel = arr[i].getChannelName();
+            channel = influencers.getEntry(i).getChannelName();
             sb.append(
                 channel + "\nreach: "
-                    + arr[i].firstQuarterReachEngagementRate());
+                    + influencers.getEntry(i).firstQuarterReachEngagementRate());
             sb.append("\n==========\n");
         }
         return sb.toString();

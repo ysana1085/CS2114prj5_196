@@ -52,6 +52,12 @@ public class GUIAnalyticsWindow
     private static final int WINDOW_HEIGHT = 600;
 
     private static final int WINDOW_WIDTH = 1000;
+    
+    private static final int BAR_SPACING = 25;
+    
+    private static final int RATE_HEIGHT = 450;
+    
+    private static final int BAR_HEIGHT = 400;
 
     // ----------------------------------------------------------
     /**
@@ -136,10 +142,7 @@ public class GUIAnalyticsWindow
     public void clickedJanButton(Button button)
     {
         timePeriod.setText("Showing January");
-        for (int i = 0; i < influencers.getLength(); i++)
-        {
-            addShapes(50, 50, 50, 50);
-        }
+        addShapes(0);
     }
 
 
@@ -262,7 +265,7 @@ public class GUIAnalyticsWindow
         }
     }
     
-    private void addShapes()
+    private void addShapes(int index)
     {
         Comparator<Influencer> comp;
         boolean reach =
@@ -276,8 +279,7 @@ public class GUIAnalyticsWindow
         {
             comp = new CompareByTraditional();
         }
-        Influencer[] arr = influencers.toArray();
-        influencers.sort(arr, 0, arr.length - 1, comp);
+        influencers.sort(comp);
         double max;
         InteractionData data =
             influencers.getEntry(0).getMonthData().getEntry(0);
@@ -288,6 +290,15 @@ public class GUIAnalyticsWindow
         else
         {
             max = toDouble(data.getTraditionalEngagementRate());
+        }
+        if(sortText.getText().equals("Sorting By Channel Name"))
+        {
+            influencers.sort(new CompareByName());
+        }
+        for(int i = 0; i < influencers.getLength(); i++)
+        {
+            influencerShapes[i] = new Shape(i, i, i, i, SHAPE_COLORS[i]);
+            window.addShape(influencerShapes[i]);
         }
     }
 
