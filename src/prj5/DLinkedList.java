@@ -270,17 +270,53 @@ public class DLinkedList<T>
     }
 
 
-    public void sort(Comparator<T> comp)
+    /**
+     * The insertion sort method uses insertion sort to arrange a doubly linked
+     * list. Taken from content pages 10: comparing and sorting.
+     * 
+     * @param comparator
+     *            The comparator object.
+     */
+    public void insertionSort(Comparator<T> comparator)
     {
-        Node curr = head;
-        while(curr.next() != null)
+        if (getLength() > 1)
         {
-            if(curr.getData() != null)
+            Node<T> unsorted = head.next();
+            Node<T> sorted = head;
+            sorted.setNext(null);
+
+            while (unsorted != tail)
             {
-                curr.getData().sort(comp);
+                Node<T> insert = unsorted;
+                unsorted = unsorted.next();
+                insertInOrder(comparator, insert);
             }
+        }
+    }
+
+
+    /**
+     * Helper method for insertion sort to insert the unsorted node into sorted
+     * region on the list.
+     * 
+     * @param inserted
+     *            The node to be inserted into sorted region.
+     */
+    private void insertInOrder(Comparator<T> comp, Node<T> inserted)
+    {
+        T item = inserted.getData();
+        Node<T> curr = head.next();
+        Node<T> prev = head;
+        while ((curr != tail) && (comp.compare(item, curr.getData()) > 0))
+        {
+            prev = curr;
             curr = curr.next();
         }
+        // insert node between prev and curr
+        prev.setNext(inserted);
+        inserted.setPrevious(prev);
+        inserted.setNext(curr);
+        curr.setPrevious(inserted);
     }
 
     /**
