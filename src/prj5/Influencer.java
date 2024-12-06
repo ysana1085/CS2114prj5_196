@@ -80,6 +80,10 @@ public class Influencer
         return channelName;
     }
 
+    public void setChannelName(String channelName)
+    {
+        this.channelName = channelName;
+    }
 
     /**
      * Gets the country of the influencer.

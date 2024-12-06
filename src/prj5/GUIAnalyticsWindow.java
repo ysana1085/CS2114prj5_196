@@ -54,7 +54,7 @@ public class GUIAnalyticsWindow
 
     private static final int WINDOW_WIDTH = 1000;
 
-    private static final int BAR_SPACING = 40;
+    private static final int BAR_SPACING = 100;
 
     private static final int RATE_HEIGHT = 450;
 
@@ -63,6 +63,8 @@ public class GUIAnalyticsWindow
     private static final int BAR_BASE_HEIGHT = 400;
 
     private static final int BAR_MAX_HEIGHT = 300;
+
+    private static final int MAX_TEXT_CHARS = 12;
 
     // ----------------------------------------------------------
     /**
@@ -349,7 +351,7 @@ public class GUIAnalyticsWindow
     {
         if (influencerShapes[0] != null)
         {
-            for (int i = 0; i < influencerShapes.length; i++)
+            for (int i = 0; i < influencers.getLength(); i++)
             {
                 window.removeShape(influencerShapes[i]);
                 window.removeShape(influencerNames[i]);
@@ -387,10 +389,10 @@ public class GUIAnalyticsWindow
                     + (int)(BAR_MAX_HEIGHT - (engagementRate * factor)) / 2,
                 SHAPE_COLORS[i]);
             influencerNames[i] = addTextShape(
-                (i + 1) * 50,
+                (i + 1) * BAR_SPACING,
                 NAME_HEIGHT,
-                influencers.getEntry(i).getChannelName() + "\n"
-                    + engagementRate);
+                influencers.getEntry(i).getChannelName()
+                    .substring(0, MAX_TEXT_CHARS) + "\n" + engagementRate);
             window.addShape(influencerShapes[i]);
         }
     }
