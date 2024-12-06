@@ -168,7 +168,7 @@ public class DLinkedListTest
         temp.add(new Influencer("ab", "cd", "ef", "gh"));
         temp.add(new Influencer("ab", "ef", "ef", "gh"));
         temp.add(new Influencer("ab", "gh", "ef", "gh"));
-        Object[] result = { new Influencer("ab", "cd", "ef", "gh"),
+        Influencer[] result = { new Influencer("ab", "cd", "ef", "gh"),
             new Influencer("ab", "ef", "ef", "gh"),
             new Influencer("ab", "gh", "ef", "gh") };
         Influencer[] arr = temp.toArray();
@@ -258,7 +258,7 @@ public class DLinkedListTest
      */
     public void testSort()
     {
-        DLinkedList<Influencer> temp = new DLinkedList<Influencer>();
+        DLinkedList<Influencer> temp = new DLinkedList<>();
         temp.add(new Influencer("ab", "cd", "ef", "gh"));
         temp.add(new Influencer("ab", "gh", "ef", "gh"));
         temp.add(new Influencer("ab", "ef", "ef", "gh"));
@@ -266,7 +266,7 @@ public class DLinkedListTest
         Influencer[] result = { new Influencer("ab", "cd", "ef", "gh"),
             new Influencer("ab", "ef", "ef", "gh"),
             new Influencer("ab", "gh", "ef", "gh") };
-        temp.sort(arr, 0, arr.length - 1, new CompareByName());
+        temp.insertionSort(new CompareByName());
         // ensure months are sorted alphabetically
         for (int i = 0; i < arr.length; i++)
         {
@@ -274,13 +274,4 @@ public class DLinkedListTest
         }
     }
 
-
-    // ----------------------------------------------------------
-    /**
-     * tests getNode
-     */
-    public void testGetNode()
-    {
-        // todo setup testGetNode
-    }
 }
