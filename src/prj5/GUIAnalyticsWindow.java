@@ -44,6 +44,7 @@ public class GUIAnalyticsWindow
     private TextShape timePeriod;
 
     private Shape[] influencerShapes;
+    private TextShape[] influencerNames;
     private static Color[] SHAPE_COLORS = new Color[4];
     private DLinkedList<Influencer> influencers;
 
@@ -52,12 +53,16 @@ public class GUIAnalyticsWindow
     private static final int WINDOW_HEIGHT = 600;
 
     private static final int WINDOW_WIDTH = 1000;
-    
-    private static final int BAR_SPACING = 25;
-    
+
+    private static final int BAR_SPACING = 40;
+
     private static final int RATE_HEIGHT = 450;
-    
-    private static final int BAR_HEIGHT = 400;
+
+    private static final int NAME_HEIGHT = 440;
+
+    private static final int BAR_BASE_HEIGHT = 400;
+
+    private static final int BAR_MAX_HEIGHT = 300;
 
     // ----------------------------------------------------------
     /**
@@ -114,6 +119,7 @@ public class GUIAnalyticsWindow
 
         this.influencers = influencers;
         influencerShapes = new Shape[influencers.getLength()];
+        influencerNames = new TextShape[influencers.getLength()];
         SHAPE_COLORS[0] = new Color(256, 156, 68);
         SHAPE_COLORS[1] = new Color(72, 188, 140);
         SHAPE_COLORS[2] = new Color(16, 84, 108);
@@ -142,7 +148,7 @@ public class GUIAnalyticsWindow
     public void clickedJanButton(Button button)
     {
         timePeriod.setText("Showing January");
-        addShapes(0);
+        updateShapes(0);
     }
 
 
@@ -155,6 +161,7 @@ public class GUIAnalyticsWindow
     public void clickedFebButton(Button button)
     {
         timePeriod.setText("Showing February");
+        updateShapes(1);
     }
 
 
@@ -167,6 +174,7 @@ public class GUIAnalyticsWindow
     public void clickedMarchButton(Button button)
     {
         timePeriod.setText("Showing March");
+        updateShapes(2);
     }
 
 
@@ -264,43 +272,81 @@ public class GUIAnalyticsWindow
             return 0;
         }
     }
-    
-    private void addShapes(int index)
-    {
-        Comparator<Influencer> comp;
-        boolean reach =
-            engagementText.getText().equals("Reach Engagement Rate");
-        if (reach)
-        {
-            comp = new CompareByReach();
 
+
+    private void updateShapes(int index)
+    {
+        for(int i = 0; i < influencerShapes.length; i++)
+        {
+            window.removeShape(influencerShapes[i]);
+            window.removeShape(influencerNames[i]);
+        }
+        double factor = getHeightFactor(index);
+        if (engagementText.getText().equals("Reach Engagement Rate"))
+        {
+            influencers.sort(new CompareByMonth(false, index));
         }
         else
         {
-            comp = new CompareByTraditional();
+            influencers.sort(new CompareByMonth(true, index));
         }
-        influencers.sort(comp);
-        double max;
-        InteractionData data =
-            influencers.getEntry(0).getMonthData().getEntry(0);
-        if (reach)
+        for (int i = 0; i < influencers.getLength(); i++)
         {
-            max = toDouble(data.getReachEngagementRate());
-        }
-        else
-        {
-            max = toDouble(data.getTraditionalEngagementRate());
-        }
-        if(sortText.getText().equals("Sorting By Channel Name"))
-        {
-            influencers.sort(new CompareByName());
-        }
-        for(int i = 0; i < influencers.getLength(); i++)
-        {
-            influencerShapes[i] = new Shape(i, i, i, i, SHAPE_COLORS[i]);
+            double engagementRate;
+            if (engagementText.getText().equals("Reach Engagement Rate"))
+            {
+                engagementRate = toDouble(
+                    influencers.getEntry(i).getMonthData().getEntry(index)
+                        .getReachEngagementRate());
+            }
+            else
+            {
+                engagementRate = toDouble(
+                    influencers.getEntry(i).getMonthData().getEntry(index)
+                        .getTraditionalEngagementRate());
+            }
+            influencerShapes[i] = new Shape(
+                (i + 1) * BAR_SPACING,
+                (int)(engagementRate * factor),
+                RECT_WIDTH,
+                (BAR_BASE_HEIGHT - BAR_MAX_HEIGHT)
+                    + (int)(BAR_MAX_HEIGHT - (engagementRate * factor)) / 2,
+                SHAPE_COLORS[i]);
+            influencerNames[i] = addTextShape(
+                (i + 1) * 50,
+                NAME_HEIGHT,
+                influencers.getEntry(i).getChannelName() + "\n"
+                    + engagementRate);
             window.addShape(influencerShapes[i]);
         }
     }
+
+
+    private double getHeightFactor(int index)
+    {
+        double max = 0;
+        InteractionData data =
+            influencers.getEntry(index).getMonthData().getEntry(index);
+        for (int i = 0; i < influencers.getLength(); i++)
+        {
+            if (engagementText.getText().equals("Reach Engagement Rate"))
+            {
+                if (toDouble(data.getReachEngagementRate()) > max)
+                {
+                    max = toDouble(data.getReachEngagementRate());
+                }
+            }
+            else
+            {
+                if (toDouble(data.getTraditionalEngagementRate()) > max)
+                {
+                    max = toDouble(data.getTraditionalEngagementRate());
+                }
+            }
+        }
+        return max / BAR_MAX_HEIGHT;
+    }
+
 
     /**
      * Updates the window to match the users input
