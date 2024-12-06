@@ -13,6 +13,7 @@ import cs2.TextShape;
 import cs2.Window;
 import cs2.WindowSide;
 import java.awt.Color;
+import java.util.Comparator;
 import list.AList;
 
 // -------------------------------------------------------------------------
@@ -42,14 +43,11 @@ public class GUIAnalyticsWindow
     private TextShape engagementText;
     private TextShape timePeriod;
 
-    private AList<Shape> influencerShapes;
+    private Shape[] influencerShapes;
+    private static Color[] SHAPE_COLORS = new Color[4];
     private DLinkedList<Influencer> influencers;
 
     private static final int RECT_WIDTH = 50;
-
-    private static final int HEIGHT_FACTOR_TRAD = 10;
-
-    private static final int HEIGHT_FACTOR_REACH = 10;
 
     private static final int WINDOW_HEIGHT = 600;
 
@@ -109,6 +107,11 @@ public class GUIAnalyticsWindow
         timePeriod = addTextShape(5, 10, "");
 
         this.influencers = influencers;
+        influencerShapes = new Shape[influencers.getLength()];
+        SHAPE_COLORS[0] = new Color(256, 156, 68);
+        SHAPE_COLORS[1] = new Color(72, 188, 140);
+        SHAPE_COLORS[2] = new Color(16, 84, 108);
+        SHAPE_COLORS[3] = new Color(88, 132, 212);
     }
 
 
@@ -133,6 +136,10 @@ public class GUIAnalyticsWindow
     public void clickedJanButton(Button button)
     {
         timePeriod.setText("Showing January");
+        for (int i = 0; i < influencers.getLength(); i++)
+        {
+            addShapes(50, 50, 50, 50);
+        }
     }
 
 
@@ -243,6 +250,47 @@ public class GUIAnalyticsWindow
     }
 
 
+    private double toDouble(String str)
+    {
+        try
+        {
+            return Double.parseDouble(str);
+        }
+        catch (Exception e)
+        {
+            return 0;
+        }
+    }
+    
+    private void addShapes()
+    {
+        Comparator<Influencer> comp;
+        boolean reach =
+            engagementText.getText().equals("Reach Engagement Rate");
+        if (reach)
+        {
+            comp = new CompareByReach();
+
+        }
+        else
+        {
+            comp = new CompareByTraditional();
+        }
+        Influencer[] arr = influencers.toArray();
+        influencers.sort(arr, 0, arr.length - 1, comp);
+        double max;
+        InteractionData data =
+            influencers.getEntry(0).getMonthData().getEntry(0);
+        if (reach)
+        {
+            max = toDouble(data.getReachEngagementRate());
+        }
+        else
+        {
+            max = toDouble(data.getTraditionalEngagementRate());
+        }
+    }
+
     /**
      * Updates the window to match the users input
      */
@@ -250,15 +298,4 @@ public class GUIAnalyticsWindow
     {
         // check in for office hours about this
     }
-
-
-    /**
-     * Ends the graphic display by removing all shapes and displaying a message
-     */
-    public void endGraphics()
-    {
-        window.removeAllShapes();
-        addTextShape(400, 400, "All users processed!");
-    }
-
 }

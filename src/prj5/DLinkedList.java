@@ -270,52 +270,17 @@ public class DLinkedList<T>
     }
 
 
-    /**
-     * The sort method uses an insertion sort to sort an array of months based
-     * on order. Taken from course notes on Comparing and Sorting
-     *
-     * @param array
-     *            The array being sorted using insertion sort
-     * @param first
-     *            The first element in the array
-     * @param last
-     *            The last element in the array
-     * @param comp
-     *            The Comparator Object
-     */
-    public void sort(T[] array, int first, int last, Comparator<T> comp)
+    public void sort(Comparator<T> comp)
     {
-        for (int i = first + 1; i <= last; i++)
+        Node curr = head;
+        while(curr.next() != null)
         {
-            insertInOrder(array[i], array, first, i - 1, comp);
+            if(curr.getData() != null)
+            {
+                curr.getData().sort(comp);
+            }
+            curr = curr.next();
         }
-    }
-
-
-    /**
-     * Helper method to help sort the elements using a comparator. Taken from
-     * course notes on Comparing and Sorting
-     *
-     * @param anEntry
-     *            The entry being sorted in the array
-     * @param a
-     *            The array of elements to be sorted.
-     * @param begin
-     *            The start of the array where the insertion sort beings.
-     * @param end
-     *            The end of the array
-     */
-    private
-        void
-        insertInOrder(T anEntry, T[] a, int begin, int end, Comparator<T> comp)
-    {
-        int index = end;
-        while ((index >= begin) && comp.compare(anEntry, a[index]) < 0)
-        {
-            a[index + 1] = a[index];
-            index--;
-        }
-        a[index + 1] = anEntry;
     }
 
     /**
