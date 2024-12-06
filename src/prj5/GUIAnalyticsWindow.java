@@ -45,8 +45,11 @@ public class GUIAnalyticsWindow
 
     private Shape[] influencerShapes;
     private TextShape[] influencerNames;
+    private TextShape[] influencerRates;
     private static Color[] SHAPE_COLORS = new Color[4];
     private DLinkedList<Influencer> influencers;
+
+    private int monthIndex;
 
     private static final int RECT_WIDTH = 50;
 
@@ -126,6 +129,8 @@ public class GUIAnalyticsWindow
         this.influencers = influencers;
         influencerShapes = new Shape[influencers.getLength()];
         influencerNames = new TextShape[influencers.getLength()];
+        influencerRates = new TextShape[influencers.getLength()];
+
         SHAPE_COLORS[0] = new Color(255, 156, 68);
         SHAPE_COLORS[1] = new Color(72, 188, 140);
         SHAPE_COLORS[2] = new Color(16, 84, 108);
@@ -153,8 +158,9 @@ public class GUIAnalyticsWindow
      */
     public void clickedJanButton(Button button)
     {
+        monthIndex = 0;
         timePeriod.setText("Showing January");
-        updateShapes(0);
+        updateShapes(monthIndex);
     }
 
 
@@ -166,8 +172,9 @@ public class GUIAnalyticsWindow
      */
     public void clickedFebButton(Button button)
     {
+        monthIndex = 1;
         timePeriod.setText("Showing February");
-        updateShapes(1);
+        updateShapes(monthIndex);
     }
 
 
@@ -179,8 +186,9 @@ public class GUIAnalyticsWindow
      */
     public void clickedMarchButton(Button button)
     {
+        monthIndex = 2;
         timePeriod.setText("Showing March");
-        updateShapes(2);
+        updateShapes(monthIndex);
     }
 
 
@@ -201,6 +209,7 @@ public class GUIAnalyticsWindow
             {
                 window.removeShape(influencerShapes[i]);
                 window.removeShape(influencerNames[i]);
+                window.removeShape(influencerRates[i]);
             }
         }
         double max = 0;
@@ -259,6 +268,7 @@ public class GUIAnalyticsWindow
                 (BAR_BASE_HEIGHT - BAR_MAX_HEIGHT)
                     + (int)(BAR_MAX_HEIGHT - (engagementRate * factor)) / 2,
                 SHAPE_COLORS[i]);
+            window.addShape(influencerShapes[i]);
             String channelName = influencers.getEntry(i).getChannelName();
             if (channelName.length() > MAX_CHARS)
             {
@@ -269,12 +279,10 @@ public class GUIAnalyticsWindow
                 (i + 1) * BAR_SPACING,
                 NAME_HEIGHT,
                 influencers.getEntry(i).getChannelName());
-            window.addShape(influencerShapes[i]);
-            window.addShape(
-                addTextShape(
-                    (i + 1) * BAR_SPACING,
-                    RATE_HEIGHT,
-                    "" + engagementRate));
+            influencerRates[i] = addTextShape(
+                (i + 1) * BAR_SPACING,
+                RATE_HEIGHT,
+                "" + engagementRate);
         }
     }
 
@@ -317,6 +325,7 @@ public class GUIAnalyticsWindow
     public void clickedTraditional(Button button)
     {
         engagementText.setText("Traditional Engagement Rate");
+        updateShapes(monthIndex);
     }
 
 
@@ -363,6 +372,7 @@ public class GUIAnalyticsWindow
 
     private void updateShapes(int index)
     {
+        // remove shapes
         if (influencerShapes[0] != null)
         {
             for (int i = 0; i < influencers.getLength(); i++)
@@ -371,7 +381,9 @@ public class GUIAnalyticsWindow
                 window.removeShape(influencerNames[i]);
             }
         }
+        // get height factor (necessary so that shapes aren't too small or big)
         double factor = getHeightFactor(index);
+        // sort the linked list so that the shapes are created in order
         if (engagementText.getText().equals("Reach Engagement Rate"))
         {
             influencers.insertionSort(new CompareByMonth(false, index));
@@ -380,9 +392,11 @@ public class GUIAnalyticsWindow
         {
             influencers.insertionSort(new CompareByMonth(true, index));
         }
+        // create all rectangles and text fields
         for (int i = 0; i < influencers.getLength(); i++)
         {
             double engagementRate;
+            // get engagement rate from monthData List at specified index
             if (engagementText.getText().equals("Reach Engagement Rate"))
             {
                 engagementRate = toDouble(
@@ -395,12 +409,15 @@ public class GUIAnalyticsWindow
                     influencers.getEntry(i).getMonthData().getEntry(index)
                         .getTraditionalEngagementRate());
             }
+            // specify dimensions
             influencerShapes[i] = new Shape(
-                (i + 1) * BAR_SPACING,
-                (int)(engagementRate * factor),
+                (i + 1) * BAR_SPACING, // 100, 200, ...etc
+                // adjusts bar height based on the ratio of max window height to
+                // max bar height.
+                BAR_BASE_HEIGHT - (int)(engagementRate * factor),
+                // 50 (constant)
                 RECT_WIDTH,
-                (BAR_BASE_HEIGHT - BAR_MAX_HEIGHT)
-                    + (int)(BAR_MAX_HEIGHT - (engagementRate * factor)) / 2,
+                (int)(engagementRate * factor),
                 SHAPE_COLORS[i]);
             String channelName = influencers.getEntry(i).getChannelName();
             if (channelName.length() > MAX_CHARS)
@@ -425,10 +442,10 @@ public class GUIAnalyticsWindow
     private double getHeightFactor(int index)
     {
         double max = 0;
-        InteractionData data =
-            influencers.getEntry(index).getMonthData().getEntry(index);
         for (int i = 0; i < influencers.getLength(); i++)
         {
+            InteractionData data =
+                influencers.getEntry(i).getMonthData().getEntry(index);
             if (engagementText.getText().equals("Reach Engagement Rate"))
             {
                 if (toDouble(data.getReachEngagementRate()) > max)
@@ -444,6 +461,6 @@ public class GUIAnalyticsWindow
                 }
             }
         }
-        return max / BAR_MAX_HEIGHT;
+        return BAR_MAX_HEIGHT / max;
     }
 }
