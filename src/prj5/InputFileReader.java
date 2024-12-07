@@ -142,8 +142,8 @@ public class InputFileReader
         {
             channel = influencers.getEntry(i).getChannelName();
             sb.append(
-                channel + "\ntraditional: "
-                    + influencers.getEntry(i).firstQuarterTraditionalEngagementRate());
+                channel + "\ntraditional: " + influencers.getEntry(i)
+                    .firstQuarterTraditionalEngagementRate());
             sb.append("\n==========\n");
         }
         sb.append("**********\n**********\n");
@@ -152,8 +152,8 @@ public class InputFileReader
         {
             channel = influencers.getEntry(i).getChannelName();
             sb.append(
-                channel + "\nreach: "
-                    + influencers.getEntry(i).firstQuarterReachEngagementRate());
+                channel + "\nreach: " + influencers.getEntry(i)
+                    .firstQuarterReachEngagementRate());
             sb.append("\n==========\n");
         }
         return sb.toString();

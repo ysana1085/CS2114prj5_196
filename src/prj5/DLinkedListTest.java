@@ -310,10 +310,9 @@ public class DLinkedListTest
         Influencer[] result = { new Influencer("ab", "cd", "ef", "gh"),
             new Influencer("ab", "ef", "ef", "gh"),
             new Influencer("ab", "gh", "ef", "gh") };
-        // ensure months are sorted alphabetically
         for (int i = 0; i < result.length; i++)
         {
-            assertEquals(result[i], arr[i]);
+            assertTrue(temp.getEntry(i).equals(result[i]));
         }
     }
 }

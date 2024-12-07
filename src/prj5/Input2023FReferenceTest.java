@@ -166,7 +166,7 @@ public class Input2023FReferenceTest
     /**
      * Test the program with the data provided for students to use
      * 
-     * @throws 
+     * @throws
      * @throws ParseException
      */
     @Hint("The main method is not working properly with input file "
@@ -174,7 +174,7 @@ public class Input2023FReferenceTest
     public void testMain01()
         throws java.io.IOException,
         ParseException
-        
+
     {
 
         ProjectRunner.main(new String[] { "SampleInput1_2023.csv" });

@@ -105,6 +105,7 @@ public class DLinkedList<T>
      * Helper method gets the node at that index Taken from week 10 lab.
      *
      * @param index
+     *            the desired index
      * @return node at index
      */
     public Node<T> getNodeAtIndex(int index)

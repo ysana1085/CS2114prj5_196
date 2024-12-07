@@ -28,7 +28,7 @@ public class CompareByName
     @Override
     public int compare(Influencer left, Influencer right)
     {
-        return right.getChannelName().toLowerCase()
-            .compareTo(left.getChannelName().toLowerCase());
+        return left.getChannelName().toLowerCase()
+            .compareTo(right.getChannelName().toLowerCase());
     }
 }
