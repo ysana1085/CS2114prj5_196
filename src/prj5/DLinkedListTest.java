@@ -272,6 +272,31 @@ public class DLinkedListTest
         {
             assertEquals(result[i], arr[i]);
         }
+        for (int i = 0; i < temp.getLength(); i++)
+        {
+            temp.getEntry(i).getMonthData().add(
+                new InteractionData(
+                    (i + 1) * 22876452,
+                    333,
+                    4650272,
+                    518,
+                    170095,
+                    "January"));
+        }
+        temp.insertionSort(new CompareByMonth(true, 0));
+        int count = 3;
+        for (int i = 0; i < 3; i++)
+        {
+            assertTrue(
+                temp.getEntry(count - 1).getMonthData().getEntry(0).equals(
+                    new InteractionData(
+                        (count - 1) * 22876452,
+                        333,
+                        4650272,
+                        518,
+                        170095,
+                        "January")));
+        }
     }
 
 }

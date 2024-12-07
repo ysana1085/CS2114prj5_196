@@ -379,6 +379,7 @@ public class GUIAnalyticsWindow
             {
                 window.removeShape(influencerShapes[i]);
                 window.removeShape(influencerNames[i]);
+                window.removeShape(influencerRates[i]);
             }
         }
         // get height factor (necessary so that shapes aren't too small or big)
@@ -430,11 +431,10 @@ public class GUIAnalyticsWindow
                 NAME_HEIGHT,
                 influencers.getEntry(i).getChannelName());
             window.addShape(influencerShapes[i]);
-            window.addShape(
-                addTextShape(
-                    (i + 1) * BAR_SPACING,
-                    RATE_HEIGHT,
-                    "" + engagementRate));
+            influencerRates[i] = addTextShape(
+                (i + 1) * BAR_SPACING,
+                RATE_HEIGHT,
+                "" + engagementRate);
         }
     }
 
