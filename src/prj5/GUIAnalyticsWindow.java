@@ -71,8 +71,6 @@ public class GUIAnalyticsWindow
 
     private static final int FONT_SIZE = 12;
 
-    private static final int INITIAL_OFFSET = 200;
-
     // ----------------------------------------------------------
     /**
      * Create a new GUIAnalyticsWindow object.
@@ -297,6 +295,7 @@ public class GUIAnalyticsWindow
     public void clickedSortByChannelName(Button button)
     {
         sortText.setText("Sorting by Channel Name");
+        updateShapes(monthIndex);
     }
 
 
@@ -310,6 +309,7 @@ public class GUIAnalyticsWindow
     public void clickedSortByEngagementRate(Button button)
     {
         sortText.setText("Sorting by Engagement Rate");
+        updateShapes(monthIndex);
     }
 
 
@@ -341,6 +341,7 @@ public class GUIAnalyticsWindow
     public void clickedReach(Button button)
     {
         engagementText.setText("Reach Engagement Rate");
+        updateShapes(monthIndex);
     }
 
 
@@ -385,13 +386,20 @@ public class GUIAnalyticsWindow
         // get height factor (necessary so that shapes aren't too small or big)
         double factor = getHeightFactor(index);
         // sort the linked list so that the shapes are created in order
-        if (engagementText.getText().equals("Reach Engagement Rate"))
+        if (sortText.getText().equals("Sorting by Engagement Rate"))
         {
-            influencers.insertionSort(new CompareByMonth(false, index));
+            if(engagementText.getText().equals("Reach Engagement Rate"))
+            {
+                influencers.insertionSort(new CompareByMonth(false, index));
+            }
+            else
+            {
+                influencers.insertionSort(new CompareByMonth(true, index));
+            }
         }
         else
         {
-            influencers.insertionSort(new CompareByMonth(true, index));
+            influencers.insertionSort(new CompareByName());
         }
         // create all rectangles and text fields
         for (int i = 0; i < influencers.getLength(); i++)
