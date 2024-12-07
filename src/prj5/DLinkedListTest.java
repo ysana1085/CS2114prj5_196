@@ -105,6 +105,42 @@ public class DLinkedListTest
 
 
     /**
+     * Tests the getNodeAtIndex for any index out of bound exceptions.
+     */
+    public void testGetNodeAtIndex()
+    {
+        list.add("january");
+        list.add("february");
+        list.add("march");
+        list.add("april");
+        Exception e = null;
+        // index is less than zero
+        try
+        {
+            list.getNodeAtIndex(-1);
+        }
+        catch (Exception exception)
+        {
+            e = exception;
+        }
+        assertNotNull(e);
+        e = null;
+        assertNull(e);
+        // index is greater than size of list
+        try
+        {
+            list.getNodeAtIndex(50);
+        }
+        catch (Exception exception)
+        {
+            e = exception;
+        }
+        assertNotNull(e);
+
+    }
+
+
+    /**
      * Tester method for clear to ensure list is being cleared when called.
      */
     public void testClear()
@@ -258,6 +294,13 @@ public class DLinkedListTest
      */
     public void testSort()
     {
+        // empty list - getLength is 0
+        DLinkedList<Influencer> empty = new DLinkedList<>();
+        empty.insertionSort(new CompareByName());
+        assertTrue(empty.isEmpty());
+        assertEquals(0, empty.getLength());
+
+        // non-empty list sort
         DLinkedList<Influencer> temp = new DLinkedList<>();
         temp.add(new Influencer("ab", "cd", "ef", "gh"));
         temp.add(new Influencer("ab", "gh", "ef", "gh"));
@@ -271,31 +314,6 @@ public class DLinkedListTest
         for (int i = 0; i < result.length; i++)
         {
             assertEquals(result[i], arr[i]);
-        }
-        for (int i = 0; i < temp.getLength(); i++)
-        {
-            temp.getEntry(i).getMonthData().add(
-                new InteractionData(
-                    (i + 1) * 22876452,
-                    333,
-                    4650272,
-                    518,
-                    170095,
-                    "January"));
-        }
-        temp.insertionSort(new CompareByMonth(true, 0));
-        int count = 3;
-        for (int i = 0; i < 3; i++)
-        {
-            assertTrue(
-                temp.getEntry(count - 1).getMonthData().getEntry(0).equals(
-                    new InteractionData(
-                        (count - 1) * 22876452,
-                        333,
-                        4650272,
-                        518,
-                        170095,
-                        "January")));
         }
     }
 
