@@ -19,7 +19,8 @@ import java.text.DecimalFormat;
  * @author bradl
  * @version Nov 21, 2024
  */
-public class Influencer {
+public class Influencer
+{
     // ~ Fields ................................................................
     private String username;
     private String channelName;
@@ -63,7 +64,8 @@ public class Influencer {
      * @return the username of this influencer.
      */
     // ~Public Methods ........................................................
-    public String getUsername() {
+    public String getUsername()
+    {
         return username;
     }
 
@@ -73,7 +75,8 @@ public class Influencer {
      * 
      * @return the username of this influencer.
      */
-    public String getChannelName() {
+    public String getChannelName()
+    {
         return channelName;
     }
 
@@ -84,7 +87,8 @@ public class Influencer {
      * @param channelName
      *            the new channel name
      */
-    public void setChannelName(String channelName) {
+    public void setChannelName(String channelName)
+    {
         this.channelName = channelName;
     }
 
@@ -94,7 +98,8 @@ public class Influencer {
      * 
      * @return the country of this influencer.
      */
-    public String getCountry() {
+    public String getCountry()
+    {
         return country;
     }
 
@@ -104,7 +109,8 @@ public class Influencer {
      * 
      * @return the main topic of this influencer.
      */
-    public String getMainTopic() {
+    public String getMainTopic()
+    {
         return mainTopic;
     }
 
@@ -114,7 +120,8 @@ public class Influencer {
      * 
      * @return the list of monthly interaction data of this influencer.
      */
-    public AList<InteractionData> getMonthData() {
+    public AList<InteractionData> getMonthData()
+    {
         return monthData;
     }
 
@@ -125,20 +132,22 @@ public class Influencer {
      * comments, likes, and followers of a given influencer.
      * 
      * @return A string representation of the traditional engagement rate of the
-     *         first quarter for a given influencer.
+     *             first quarter for a given influencer.
      */
-    public String firstQuarterTraditionalEngagementRate() {
+    public String firstQuarterTraditionalEngagementRate()
+    {
         DecimalFormat df = new DecimalFormat("#.#");
         double sum = 0.0;
-        for (int i = 0; i < monthData.getLength(); i++) {
-            if (!monthData.getEntry(i).getTraditionalEngagementRate().equals(
-                "N/A")) {
-                sum += monthData.getEntry(i).getComments() + monthData.getEntry(
-                    i).getLikes();
+        for (int i = 0; i < monthData.getLength(); i++)
+        {
+            if (!monthData.getEntry(i).getTraditionalEngagementRate()
+                .equals("N/A"))
+            {
+                sum += monthData.getEntry(i).getComments()
+                    + monthData.getEntry(i).getLikes();
 
-                // todo extend ifstatement to include other months in first
-                // quarter.
-                if (monthData.getEntry(i).getMonth().equals("March")) {
+                if (monthData.getEntry(i).getMonth().equals("March"))
+                {
                     sum /= monthData.getEntry(i).getFollowers();
                     sum *= 100;
                     return df.format(sum);
@@ -155,23 +164,29 @@ public class Influencer {
      * comments, likes, and views of a given influencer.
      * 
      * @return A string representation of the traditional engagement rate of the
-     *         first quarter for a given influencer.
+     *             first quarter for a given influencer.
      */
-    public String firstQuarterReachEngagementRate() {
+    public String firstQuarterReachEngagementRate()
+    {
         DecimalFormat df = new DecimalFormat("#.#");
         double sum = 0.0;
         double viewCount = 0.0;
-        for (int i = 0; i < monthData.getLength(); i++) {
-            if (!monthData.getEntry(i).getReachEngagementRate().equals("N/A")) {
+        for (int i = 0; i < monthData.getLength(); i++)
+        {
+            if (!monthData.getEntry(i).getReachEngagementRate().equals("N/A"))
+            {
                 viewCount += monthData.getEntry(i).getViews();
             }
         }
-        if (viewCount > 0) {
-            for (int i = 0; i < monthData.getLength(); i++) {
-                if (!monthData.getEntry(i).getReachEngagementRate().equals(
-                    "N/A")) {
-                    sum += ((monthData.getEntry(i).getComments() + monthData
-                        .getEntry(i).getLikes() * 1.0) / viewCount);
+        if (viewCount > 0)
+        {
+            for (int i = 0; i < monthData.getLength(); i++)
+            {
+                if (!monthData.getEntry(i).getReachEngagementRate()
+                    .equals("N/A"))
+                {
+                    sum += ((monthData.getEntry(i).getComments()
+                        + monthData.getEntry(i).getLikes() * 1.0) / viewCount);
                 }
             }
         }
@@ -188,17 +203,22 @@ public class Influencer {
      *            the object we want to compare
      */
     @Override
-    public boolean equals(Object obj) {
-        if (this == obj) {
+    public boolean equals(Object obj)
+    {
+        if (this == obj)
+        {
             return true;
         }
-        if (obj == null) {
+        if (obj == null)
+        {
             return false;
         }
-        if (this.getClass() == obj.getClass()) {
+        if (this.getClass() == obj.getClass())
+        {
             Influencer other = (Influencer)obj;
-            return this.username.equals(other.username) && this.channelName
-                .equals(other.channelName) && this.country.equals(other.country)
+            return this.username.equals(other.username)
+                && this.channelName.equals(other.channelName)
+                && this.country.equals(other.country)
                 && this.mainTopic.equals(other.mainTopic);
         }
         return false;

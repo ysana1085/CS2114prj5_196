@@ -50,14 +50,19 @@ public class CompareByMonth
     {
         double rightEngagementRate;
         double leftEngagementRate;
+
         String leftTraditional =
             left.getMonthData().getEntry(index).getTraditionalEngagementRate();
+
         String rightTraditional =
             right.getMonthData().getEntry(index).getTraditionalEngagementRate();
+
         String leftReach =
             left.getMonthData().getEntry(index).getReachEngagementRate();
+
         String rightReach =
             right.getMonthData().getEntry(index).getReachEngagementRate();
+
         if (isTraditional)
         {
             if (leftTraditional.equals("N/A"))
