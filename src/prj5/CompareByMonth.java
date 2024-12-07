@@ -101,6 +101,6 @@ public class CompareByMonth
                 rightEngagementRate = Double.parseDouble(rightTraditional);
             }
         }
-        return Double.compare(leftEngagementRate, rightEngagementRate);
+        return Double.compare(rightEngagementRate, leftEngagementRate);
     }
 }
