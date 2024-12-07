@@ -105,6 +105,42 @@ public class DLinkedListTest
 
 
     /**
+     * Tests the getNodeAtIndex for any index out of bound exceptions.
+     */
+    public void testGetNodeAtIndex()
+    {
+        list.add("january");
+        list.add("february");
+        list.add("march");
+        list.add("april");
+        Exception e = null;
+        // index is less than zero
+        try
+        {
+            list.getNodeAtIndex(-1);
+        }
+        catch (Exception exception)
+        {
+            e = exception;
+        }
+        assertNotNull(e);
+        e = null;
+        assertNull(e);
+        // index is greater than size of list
+        try
+        {
+            list.getNodeAtIndex(50);
+        }
+        catch (Exception exception)
+        {
+            e = exception;
+        }
+        assertNotNull(e);
+
+    }
+
+
+    /**
      * Tester method for clear to ensure list is being cleared when called.
      */
     public void testClear()
@@ -258,6 +294,13 @@ public class DLinkedListTest
      */
     public void testSort()
     {
+        // empty list - getLength is 0
+        DLinkedList<Influencer> empty = new DLinkedList<>();
+        empty.insertionSort(new CompareByName());
+        assertTrue(empty.isEmpty());
+        assertEquals(0, empty.getLength());
+
+        // non-empty list sort
         DLinkedList<Influencer> temp = new DLinkedList<>();
         temp.add(new Influencer("ab", "cd", "ef", "gh"));
         temp.add(new Influencer("ab", "gh", "ef", "gh"));
