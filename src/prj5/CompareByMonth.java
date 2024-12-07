@@ -79,7 +79,7 @@ public class CompareByMonth
             }
             else
             {
-                rightEngagementRate = Double.parseDouble(leftTraditional);
+                rightEngagementRate = Double.parseDouble(rightTraditional);
             }
         }
         else
@@ -98,7 +98,7 @@ public class CompareByMonth
             }
             else
             {
-                rightEngagementRate = Double.parseDouble(leftTraditional);
+                rightEngagementRate = Double.parseDouble(rightTraditional);
             }
         }
         return Double.compare(leftEngagementRate, rightEngagementRate);
