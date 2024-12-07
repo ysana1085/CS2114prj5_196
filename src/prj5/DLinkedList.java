@@ -107,7 +107,7 @@ public class DLinkedList<T>
      * @param index
      * @return node at index
      */
-    private Node<T> getNodeAtIndex(int index)
+    public Node<T> getNodeAtIndex(int index)
     {
         if (index < 0 || getLength() <= index)
         {
