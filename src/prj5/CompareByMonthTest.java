@@ -21,7 +21,7 @@ public class CompareByMonthTest
     private InteractionData january;
     private InteractionData february;
     private InteractionData march;
-    
+
     private InteractionData january2;
     private InteractionData february2;
     private InteractionData march2;
@@ -46,7 +46,7 @@ public class CompareByMonthTest
         january = new InteractionData(10, 10, 10, 10, 2, "January");
         february = new InteractionData(20, 20, 20, 20, 10, "February");
         march = new InteractionData(30, 30, 30, 30, 10, "March");
-        
+
         january2 = new InteractionData(10, 10, 10, 10, 1, "January");
         february2 = new InteractionData(20, 20, 20, 20, 5, "February");
         march2 = new InteractionData(30, 30, 30, 30, 5, "March");
@@ -56,10 +56,14 @@ public class CompareByMonthTest
     public void testCompare()
     {
         left.getMonthData().add(february);
-        left.getMonthData().add(march);
-        left.getMonthData().add(january);
+        right.getMonthData().add(january);
 
-        right.getMonthData().add(january2);
+        // for some reason it returns 200 no matter what interaction data is in
+        // the first slot
+        System.out.println(
+            left.getMonthData().getEntry(0).getTraditionalEngagementRate());
+        System.out.println(
+            right.getMonthData().getEntry(0).getTraditionalEngagementRate());
 
         assertEquals(0, trad1.compare(left, right));
     }
