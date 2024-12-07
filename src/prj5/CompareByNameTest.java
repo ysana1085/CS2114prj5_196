@@ -40,10 +40,10 @@ public class CompareByNameTest
      */
     public void testCompare()
     {
-        assertEquals(comp.compare(left, right), -2);
+        assertEquals(comp.compare(left, right), 2);
         assertEquals(comp.compare(left, left), 0);
-        assertEquals(comp.compare(right, left), 2);
-        assertEquals(comp.compare(leftUpper, rightUpper), -2);
-        assertEquals(comp.compare(rightUpper, leftUpper), 2);
+        assertEquals(comp.compare(right, left), -2);
+        assertEquals(comp.compare(leftUpper, rightUpper), 2);
+        assertEquals(comp.compare(rightUpper, leftUpper), -2);
     }
 }

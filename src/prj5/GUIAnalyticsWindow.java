@@ -203,12 +203,32 @@ public class GUIAnalyticsWindow
         timePeriod.setText("Showing First Quarter (Jan-March)");
         if (influencerShapes[0] != null)
         {
-            for (int i = 0; i < influencerShapes.length; i++)
+            for (int i = 0; i < influencers.getLength(); i++)
             {
                 window.removeShape(influencerShapes[i]);
                 window.removeShape(influencerNames[i]);
                 window.removeShape(influencerRates[i]);
             }
+        }
+        else
+        {
+            engagementText.setText("Traditional Engagement Rate");
+            sortText.setText("Sorting by Channel Name");
+        }
+        if (sortText.getText().equals("Sorting by Engagement Rate"))
+        {
+            if (engagementText.getText().equals("Reach Engagement Rate"))
+            {
+                influencers.insertionSort(new CompareByReach());
+            }
+            else
+            {
+                influencers.insertionSort(new CompareByTraditional());
+            }
+        }
+        else
+        {
+            influencers.insertionSort(new CompareByName());
         }
         double max = 0;
         for (int i = 0; i < influencers.getLength(); i++)
@@ -228,7 +248,7 @@ public class GUIAnalyticsWindow
             {
                 if (toDouble(
                     influencers.getEntry(i)
-                        .firstQuarterReachEngagementRate()) > max)
+                        .firstQuarterTraditionalEngagementRate()) > max)
                 {
                     max = toDouble(
                         influencers.getEntry(i)
@@ -236,7 +256,7 @@ public class GUIAnalyticsWindow
                 }
             }
         }
-        double factor = max / BAR_MAX_HEIGHT;
+        double factor = BAR_MAX_HEIGHT / max;
         if (engagementText.getText().equals("Reach Engagement Rate"))
         {
             influencers.insertionSort(new CompareByReach());
@@ -261,10 +281,9 @@ public class GUIAnalyticsWindow
             }
             influencerShapes[i] = new Shape(
                 (i + 1) * BAR_SPACING,
-                (int)(engagementRate * factor),
+                BAR_BASE_HEIGHT - (int)(engagementRate * factor),
                 RECT_WIDTH,
-                (BAR_BASE_HEIGHT - BAR_MAX_HEIGHT)
-                    + (int)(BAR_MAX_HEIGHT - (engagementRate * factor)) / 2,
+                (int)(engagementRate * factor),
                 SHAPE_COLORS[i]);
             window.addShape(influencerShapes[i]);
             String channelName = influencers.getEntry(i).getChannelName();
@@ -373,7 +392,6 @@ public class GUIAnalyticsWindow
 
     private void updateShapes(int index)
     {
-        // remove shapes
         if (influencerShapes[0] != null)
         {
             for (int i = 0; i < influencers.getLength(); i++)
@@ -383,12 +401,15 @@ public class GUIAnalyticsWindow
                 window.removeShape(influencerRates[i]);
             }
         }
-        // get height factor (necessary so that shapes aren't too small or big)
+        else
+        {
+            engagementText.setText("Traditional Engagement Rate");
+            sortText.setText("Sorting by Channel Name");
+        }
         double factor = getHeightFactor(index);
-        // sort the linked list so that the shapes are created in order
         if (sortText.getText().equals("Sorting by Engagement Rate"))
         {
-            if(engagementText.getText().equals("Reach Engagement Rate"))
+            if (engagementText.getText().equals("Reach Engagement Rate"))
             {
                 influencers.insertionSort(new CompareByMonth(false, index));
             }
@@ -418,13 +439,9 @@ public class GUIAnalyticsWindow
                     influencers.getEntry(i).getMonthData().getEntry(index)
                         .getTraditionalEngagementRate());
             }
-            // specify dimensions
             influencerShapes[i] = new Shape(
-                (i + 1) * BAR_SPACING, // 100, 200, ...etc
-                // adjusts bar height based on the ratio of max window height to
-                // max bar height.
+                (i + 1) * BAR_SPACING,
                 BAR_BASE_HEIGHT - (int)(engagementRate * factor),
-                // 50 (constant)
                 RECT_WIDTH,
                 (int)(engagementRate * factor),
                 SHAPE_COLORS[i]);
